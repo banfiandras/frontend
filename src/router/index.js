@@ -1,19 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Fields from './components/fields.vue';
-import Forest from './components/forest.vue';
-import Military from './components/military.vue';
-import Temple from './components/temple.vue';
-import Town from './components/town.vue';
-import FirstVueComponent from'./components/FirstVueComponent.vue';
-import Banker from './npcs/banker.vue';
-import Blacksmith from './npcs/blacksmith.vue';
-import Hunter from './npcs/hunter.vue';
-import Lord from './npcs/lord.vue';
-import Peasant from './npcs/peasant.vue';
-import Soldier from './npcs/soldier.vue';
-import Wanderer from './npcs/wanderer.vue';
-import Warlord from './npcs/warlord.vue';
-import Start from './components/start.vue';
+import Fields from '../components/fields.vue';
+import Forest from '../components/forest.vue';
+import Military from '../components/military.vue';
+import Temple from '../components/temple.vue';
+import Town from '../components/town.vue';
+import FirstVueComponent from'../components/FirstVueComponent.vue';
+import Banker from '../npcs/banker.vue';
+import Blacksmith from '../npcs/blacksmith.vue';
+import Hunter from '../npcs/hunter.vue';
+import Lord from '../npcs/lord.vue';
+import Peasant from '../npcs/peasant.vue';
+import Soldier from '../npcs/soldier.vue';
+import Wanderer from '../npcs/wanderer.vue';
+import Warlord from '../npcs/warlord.vue';
+import Start from '../components/start.vue';
 
 const routes = [
 
@@ -34,11 +34,11 @@ const routes = [
   { path: '/wanderer', name: 'wanderer', component: Wanderer},
   { path: '/warlord', name: 'warlord', component: Warlord},
 ];
+console.log('ok');
 
 const baseURL = import.meta.env.VUE_APP_BASE_URL || '/';
 const router = createRouter({
   history: createWebHistory(baseURL),
   routes,
 });
-
 export default router;

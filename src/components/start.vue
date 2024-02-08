@@ -2,7 +2,7 @@
     <div class="god-selection">
     <h1>Choose Your God</h1>
     <div class="gods">
-      <div v-for="god in gods" :key="god.id" class="god" @click="selectGod(god)">
+      <div v-for="god in gods" :key="god.id" class="god" @click="select_god(god.id)">
         <img :src="god.image" :alt="god.name">
         <h2>{{ god.name }}</h2>
         <p>{{ god.description }}</p>
@@ -19,7 +19,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
+import Axios from 'axios';
+
 const selectedGod = ref(null);
 
 
@@ -31,17 +32,19 @@ const gods = ref([
 
 const router = useRouter();
 
-function selectGod(god) {
-  const userId = localStorage.getItem('userId');
-
-  axios.post('/api/select-god', { user_id: userId, god_id: god.id })
-    .then(response => {
-      console.log(response.data.message);
+const select_god = (godId) => {
+    return Axios.post('http://localhost:8000/api/select-god',{'god_id':godId} )
+    .then(resp =>{
+        return resp.data;
     })
-    .catch(error => {
-      console.error('There was an error!', error);
-    });
+    .catch(
+        err=>{
+            return "fail;"
+        }
+    )
 }
+
+
 </script>
 
   <style>

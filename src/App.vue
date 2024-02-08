@@ -1,5 +1,6 @@
 <template>
   <div>
-    <router-link to="/start.vue">start</router-link>
+    aa
+    <router-view/>
   </div>
 </template>
