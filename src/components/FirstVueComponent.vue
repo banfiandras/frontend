@@ -2,50 +2,33 @@
 
 <template>
 <div class="page-container">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary headline">
-  <div class="container-fluid headline">
-    <a class="navbar-brand" href="#">God and Prophet</a>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link">Faith point</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Hours</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Current day</a>
-        </li>
-      </ul>
-      <span class="navbar-text">
-        Profile data
-      </span>
+    
+
+    <div>
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xl-6  justify-content-center">
+              <div class="clickable-element btn btn-primary fields" style="background-image: url('/images/fields.PNG')" @click="elementClicked(elements[0])"></div>
+            </div>
+          
+            <div class="col-md-6 col-lg-6 col-xl-6 justify-content-center">
+              <div class="clickable-element btn btn-primary forest" style="background-image: url('/images/forest.PNG')" @click="elementClicked(elements[1])"></div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="clickable-element btn btn-primary temple" style="background-image: url('/images/temple.PNG')" @click="elementClicked(elements[4])"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xl-6 justify-content-center">
+              <div class="clickable-element btn btn-primary town" style="background-image: url('/images/town.PNG')" @click="elementClicked(elements[3])"></div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6 justify-content-center">
+              <div class="clickable-element btn btn-primary military" style="background-image: url('/images/military.PNG')" @click="elementClicked(elements[2])"></div>
+            </div>
+        </div>
     </div>
-  </div>
-</nav>
-
-
-
-  <div class="map-container m0">
-
-    <!-- --------------------------------------UwU----------------------------------------- -->
-
-    <div class="god-info-box" v-if="selectedGod && selectedGod.name">
-    <h3>{{ selectedGod.name }}</h3>
-    <img v-if="selectedGod.imagePath" :src="selectedGod.imagePath" :alt="selectedGod.name">
-    </div>
-
-    <!-- ---------------------------------element creation---------------------------------- -->
-
-
-
-    <div
-        v-for="element in elements"
-        :key="element.id"
-        :class="['clickable-element btn btn-primary', element.class, { transparent: element.transparent }]"
-        :style="{ 'background-image': 'url(' + element.img + ')' }"
-        @click="elementClicked(element)"
-      ></div>
+      
 
     <!-- ---------------------------------popup button creation---------------------------------- -->
 
@@ -64,25 +47,15 @@
 
     </div>
 
-    <!-- <div v-if="showPopup" class="popup">
-      <button class="close-button" @click="showPopup = false">&times;</button>
-      <h2>Travel Information</h2>
-      <div class="info">
-        <p><strong>Travel Time:</strong> {{ travelTime }}</p>
-        <p><strong>Distance:</strong> {{ distance }}</p>
-      </div>
-      <button class="travel-button" @click="travel()">Travel to {{ selectedElement?.class }}</button>
-      <div class="button-container">
-        <button v-for="button in popupButtons" :key="button" @click="handleButtonClicked(button)">{{ button }}</button>
-      </div> -->
+    
     <!-- ---------------------------------------selected god------------------------------------- -->
     <div v-if="selectedGod && selectedGod.name">
-  <h3>{{ selectedGod.name }}</h3>
-  <img v-if="selectedGod.imagePath" :src="selectedGod.imagePath" :alt="selectedGod.name">
-</div>
+      <h3>{{ selectedGod.name }}</h3>
+      <img v-if="selectedGod.imagePath" :src="selectedGod.imagePath" :alt="selectedGod.name">
+    </div>
 
   </div>
-</div>
+
 </template>
 
 <script setup>
@@ -114,22 +87,6 @@ const router = useRouter();
 const selectedElement = ref(null);
 const selectedGod = ref(null);
 
-function selectGod(god) {
-  const userId = localStorage.getItem('userId');
-
-  axios.post('/select-god', { user_id: userId, god_id: god.id })
-    .then(response => {
-        console.log(response.data.message);
-        selectedGod.value = god;
-        router.push({ name: 'FirstVueComponent' });
-    })
-    .catch(error => {
-    console.error('There was an error!', error);
-    if (error.response) {
-        console.log(error.response.data);
-    }
-});
-}
 
 //------------------------------------------------elements------------------------------------------------
 

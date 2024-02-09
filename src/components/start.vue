@@ -2,7 +2,7 @@
     <div class="god-selection">
     <h1>Choose Your God</h1>
     <div class="gods">
-      <div v-for="god in gods" :key="god.id" class="god" @click="select_god(god.id)">
+      <div v-for="god in gods" :key="god.id" class="god" @click="select_god(god.id), goToFirst()">
         <img :src="god.image" :alt="god.name">
         <h2>{{ god.name }}</h2>
         <p>{{ god.description }}</p>
@@ -33,6 +33,7 @@ const gods = ref([
 const router = useRouter();
 
 const select_god = (godId) => {
+    
     return Axios.post('http://localhost:8000/api/select-god',{'god_id':godId} )
     .then(resp =>{
         return resp.data;
@@ -42,6 +43,11 @@ const select_god = (godId) => {
             return "fail;"
         }
     )
+
+}
+
+const goToFirst = () =>{
+  router.push({ name: 'FirstVueComponent' });
 }
 
 

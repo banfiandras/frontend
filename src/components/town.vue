@@ -65,7 +65,7 @@
   // NPC data
   const npcs = ref([
     { id: 1, name: 'blacksmith', class: 'blacksmith', img: 'images/blacksmith.PNG' },
-    { id: 2, name: 'banker', class: 'banker', img: '../../images/banker.png' }
+    { id: 2, name: 'banker', class: 'banker', img: 'images/banker.PNG' }
   ]);
 
   const showPopup = ref(false);
