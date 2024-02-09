@@ -53,6 +53,7 @@
       <h3>{{ selectedGod.name }}</h3>
       <img v-if="selectedGod.imagePath" :src="selectedGod.imagePath" :alt="selectedGod.name">
     </div>
+    
 
   </div>
 
