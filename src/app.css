@@ -179,6 +179,16 @@ html, body {
 
 
 /* MENU */
+.menu-side{
+  background-color: #28a745;
+}
+
+.menu-side-button{
+  margin: 5px;
+  border: black;
+  border-width: 3px;
+  background-color: #28a745;
+}
 
 .menu{
 
