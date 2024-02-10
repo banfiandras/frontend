@@ -53,6 +53,10 @@ html, body {
   font-family: 'Times New Roman', Times, serif;
 }
 
+.btn{
+  margin: 25px;
+}
+
 .button-container {
   display: flex;
   justify-content: center;

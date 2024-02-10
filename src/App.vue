@@ -1,4 +1,7 @@
 <template>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
   <nav class="navbar navbar-expand-lg bg-body-tertiary headline">
       <div class="container-fluid headline">
         <a class="navbar-brand" href="#">God and Prophet</a>
