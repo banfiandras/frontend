@@ -34,6 +34,8 @@ html, body {
   color: #555;
 }
 
+
+
 /* BUTTONS */
 .middle-container {
   position: relative; /* Change from absolute to relative */
@@ -88,6 +90,10 @@ html, body {
 
 /* CONTAINERS */
 
+.town-container {
+  text-align: center;
+}
+
 
 .town-container {
   position: relative;
@@ -95,9 +101,9 @@ html, body {
   justify-content: center;
 }
 
-.page-container {
+/* .page-container {
   height: 100vh;
-}
+} */
 
 .map-container {
   position: relative;
@@ -185,6 +191,7 @@ html, body {
 
 .menu-side-button{
   margin: 5px;
+  color: black;
   border: black;
   border-width: 3px;
   background-color: #28a745;
@@ -192,11 +199,12 @@ html, body {
 
 .menu{
 
-  position: fixed;
+  position: relative;
   left: 0;
-  top: 100px;
+  /* top: 100px;
   height: 100%;
-  width: 150px;
+  width: 150px; */
+  height: max-content;
   color: black;
   padding: 20px;
 }

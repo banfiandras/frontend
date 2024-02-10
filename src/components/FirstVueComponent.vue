@@ -3,35 +3,47 @@
 <template>
 <div class="page-container">
     
-  <div class="row">
-      <div class="col-md-11"> 
+  <div class="row justify-content-center">
+      <div class="col-md-8"> 
           <div class="row">
-            <div class="col-md-6 col-lg-6 col-xl-6  justify-content-center">
-                <div class="clickable-element btn btn-primary fields" style="background-image: url('/images/fields.PNG')" @click="elementClicked(elements[0])"></div>
+
+              <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
+                <div class="clickable-element btn btn-primary" style="background-image: url('/images/fields.PNG')" @click="elementClicked(elements[0])"></div>
               </div>
             
-              <div class="col-md-6 col-lg-6 col-xl-6 justify-content-center">
-                <div class="clickable-element btn btn-primary forest" style="background-image: url('/images/forest.PNG')" @click="elementClicked(elements[1])"></div>
+              <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
+                <div class="clickable-element btn btn-primary" style="background-image: url('/images/forest.PNG')" @click="elementClicked(elements[1])"></div>
               </div>
           </div>
-
           <div class="row justify-content-center">
-            <div class="clickable-element btn btn-primary temple" style="background-image: url('/images/temple.PNG')" @click="elementClicked(elements[4])"></div>
+            <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
+              <div class="clickable-element btn btn-primary" style="background-image: url('/images/temple.PNG')" @click="elementClicked(elements[4])"></div>
+            </div>
           </div>
+          
 
           <div class="row">
-            <div class="col-md-6 col-lg-6 col-xl-6 justify-content-center">
-                <div class="clickable-element btn btn-primary town" style="background-image: url('/images/town.PNG')" @click="elementClicked(elements[3])"></div>
+            <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
+                <div class="clickable-element btn btn-primary" style="background-image: url('/images/town.PNG')" @click="elementClicked(elements[3])"></div>
               </div>
-              <div class="col-md-6 col-lg-6 col-xl-6 justify-content-center">
-                <div class="clickable-element btn btn-primary military" style="background-image: url('/images/military.PNG')" @click="elementClicked(elements[2])"></div>
+              <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
+                <div class="clickable-element btn btn-primary" style="background-image: url('/images/military.PNG')" @click="elementClicked(elements[2])"></div>
               </div>
           </div>
       </div>
-      <div class="col-md-1 menu-side d-flex flex-column justify-content-start align-items-center text-light">
+      <div class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
-          <button class="btn btn-primary btn-block mb-2 menu-side-button">valami1</button>
-          <button class="btn btn-primary btn-block mb-2 menu-side-button">valami2</button>
+          <div v-if="selectedGod" class="selected-god-info">
+            
+            <h3>Selected God: {{ selectedGod.name }}</h3>
+            <img :src="selectedGod.image" alt="God Image">
+            <p>{{ selectedGod.description }}</p>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12">valami1</button>
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12">valami2</button>
+          </div>
+          
         </div>
       </div>
   </div>
@@ -101,7 +113,7 @@ const selectedGod = ref(null);
 //------------------------------------------------elements------------------------------------------------
 
 const elements = ref([
-  { id: 1, class: 'fields', img: '/images/fields.PNG', travelTime: '1 hour', distance: '50 miles' },
+  { id: 1, class: 'fields', img: '/images/fields.PNG', travelTime: '1 hour', distance: '50 miles'},
   { id: 2, class: 'forest', img: '/images/forest.PNG', travelTime: '30 mins', distance: '20 miles' },
   { id: 3, class: 'military', img: '/images/military.PNG', travelTime: '2 hours', distance: '100 miles' },
   { id: 4, class: 'town', img: '/images/town.PNG', travelTime: '45 mins', distance: '30 miles' },
