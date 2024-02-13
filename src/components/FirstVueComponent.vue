@@ -3,32 +3,33 @@
 <template>
   
 <div class="page-container">
+  
     
   <div class="row justify-content-center">
       <div class="col-md-8"> 
           <div class="row">
-
+            
               <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
-                <div class="clickable-element btn btn-primary" style="background-image: url('/images/fields.PNG')" @click="elementClicked(elements[0])"></div>
+                <div class="clickable-element btn btn-primary" style="background-image: url('/images/fields.PNG')" :disable="disable1" @click="elementClicked(elements[1])"></div>
               </div>
             
               <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
-                <div class="clickable-element btn btn-primary" style="background-image: url('/images/forest.PNG')" @click="elementClicked(elements[1])"></div>
+                <div class="clickable-element btn btn-primary" style="background-image: url('/images/forest.PNG')" :disable="disable2" @click="elementClicked(elements[3])"></div>
               </div>
           </div>
           <div class="row justify-content-center">
             <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
-              <div class="clickable-element btn btn-primary" style="background-image: url('/images/temple.PNG')" @click="elementClicked(elements[4])"></div>
+              <div class="clickable-element btn btn-primary" style="background-image: url('/images/temple.PNG')" :disable="disable5" @click="elementClicked(elements[0])"></div>
             </div>
           </div>
           
 
           <div class="row">
             <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
-                <div class="clickable-element btn btn-primary" style="background-image: url('/images/town.PNG')" @click="elementClicked(elements[3])"></div>
+                <div class="clickable-element btn btn-primary" style="background-image: url('/images/town.PNG')" :disable="disable4" @click="elementClicked(elements[2])"></div>
               </div>
               <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
-                <div class="clickable-element btn btn-primary" style="background-image: url('/images/military.PNG')" @click="elementClicked(elements[2])"></div>
+                <div class="clickable-element btn btn-primary" style="background-image: url('/images/military.PNG')" :disable="disable3" @click="elementClicked(elements[4])"></div>
               </div>
           </div>
       </div>
@@ -62,7 +63,7 @@
         <div><p><strong>Travel Time: <span>{{ travelTime }}</span></strong></p></div>
         <div><p><strong>Distance: <span>{{ distance }}</span></strong></p></div>
       </div>
-      <button @click="travel()" class="btn btn-primary btn-lg btn-block">Travel to {{ selectedElement?.class }}</button>
+      <button @click="travel(), travelAPI(selectedElement.id)" class="btn btn-primary btn-lg btn-block">Travel to {{ selectedElement?.class }}</button>
       <div class="button-container">
         <button v-for="button in popupButtons" :key="button" @click="handleButtonClicked(button)">{{ button }}</button>
       </div>
@@ -86,6 +87,28 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
+const disable1 = ref(false);
+const disable2 = ref(false);
+const disable3 = ref(false);
+const disable4 = ref(false);
+const disable5 = ref(false);
+
+
+// const pathID = ref(0);
+// const DisableFunc = () =>{
+//     element.value.forEach((element) => {
+//         if (element == availeblePaths()[pathID]) {
+//             disable '+' pathID+1 = false;
+//             pathID++;
+//         } else {
+//           disable '+' pathID+1 = true;
+          
+//         }
+//     })
+
+//     pathID = 0;
+// }
+
 
 
 
@@ -93,17 +116,7 @@ const gods = ref([]);
 
 const loading = ref(true);
 
-onMounted(() => {
-  axios.get('/api/last-user-god')
-    .then(response => {
-      if (response.data && response.data.selectedGod) {
-        selectedGod.value = response.data.selectedGod;
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching the last user and god:', error);
-    });
-});
+
 
 
 const router = useRouter();
@@ -114,11 +127,12 @@ const selectedGod = ref(null);
 //------------------------------------------------elements------------------------------------------------
 
 const elements = ref([
-  { id: 1, class: 'fields', img: '/images/fields.PNG', travelTime: '1 hour', distance: '50 miles'},
-  { id: 2, class: 'forest', img: '/images/forest.PNG', travelTime: '30 mins', distance: '20 miles' },
+  { id: 1, class: 'temple', img: '/images/temple.PNG', travelTime: '1.5 hours', distance: '70 miles' },
+  { id: 2, class: 'fields', img: '/images/fields.PNG', travelTime: '1 hour', distance: '50 miles'},
+  { id: 3, class: 'town', img: '/images/town.PNG', travelTime: '45 mins', distance: '30 miles' },
+  { id: 4, class: 'forest', img: '/images/forest.PNG', travelTime: '30 mins', distance: '20 miles' },
   { id: 3, class: 'military', img: '/images/military.PNG', travelTime: '2 hours', distance: '100 miles' },
-  { id: 4, class: 'town', img: '/images/town.PNG', travelTime: '45 mins', distance: '30 miles' },
-  { id: 5, class: 'temple', img: '/images/temple.PNG', travelTime: '1.5 hours', distance: '70 miles' },
+  
 ]);
 
 const showPopup = ref(false);
@@ -170,6 +184,47 @@ function travel() {
   } else {
     console.error('No element selected');
   }
+}
+
+
+
+//--------------------------------------------------------DATASERVICE--------------------------------------------------------
+
+onMounted(() => {
+  axios.get('/api/last-user-god')
+    .then(response => {
+      if (response.data && response.data.selectedGod) {
+        selectedGod.value = response.data.selectedGod;
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching the last user and god:', error);
+    });
+});
+
+const availeblePaths = () => {
+    return axios.get('http://localhost:8000/api/availeblePaths')
+    .then(resp =>{
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return "fail;"
+        }
+    )
+
+}
+
+const travelAPI = (to) =>{
+  return axios.get(`http://localhost:8000/api/travel/${to} `)
+    .then(resp =>{
+        return console.log(bazdmeg);
+    })
+    .catch(
+        err=>{
+            return "fail;"
+        }
+    )
 }
 
 </script>

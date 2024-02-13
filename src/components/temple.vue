@@ -1,21 +1,27 @@
 <template>
 
-
-  <div class="temple-img">
-    <img src="../../images/temple.PNG">
-  </div>
-    <div class="menu">
+  <div class="row">
+    
+    <div class="menu cpl-md-4 justify-content-center">
       
       <!-- Go Back to Map Button -->
       <button @click="goToMainPage" class="map-button">Return to Map</button>
 
       <button @click="buttonAction" class="menu-button">Press Me!</button>
     </div>
+    <div class="col-md-8 justify-content-center">
+      <h1>This is Temple! Mutherfucker</h1>
+    </div>
+    
+  </div>
+  <div class="temple-img">
+      <img src="../../images/temple.PNG">
+    </div>
 
     <!-- <div class="temple-img"></div> -->
   </template>
 
-  <script setup>
+  <script>
   import { useRouter } from 'vue-router';
 
   const router = useRouter();
