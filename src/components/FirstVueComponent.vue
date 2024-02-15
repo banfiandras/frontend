@@ -63,7 +63,7 @@
         <div><p><strong>Travel Time: <span>{{ travelTime }}</span></strong></p></div>
         <div><p><strong>Distance: <span>{{ distance }}</span></strong></p></div>
       </div>
-      <button @click="travel(), travelAPI(selectedElement.id)" class="btn btn-primary btn-lg btn-block">Travel to {{ selectedElement?.class }}</button>
+      <button @click="travel(), travelAPI(selectedElement.id), DisableFunc()" class="btn btn-primary btn-lg btn-block">Travel to {{ selectedElement?.class }}</button>
       <div class="button-container">
         <button v-for="button in popupButtons" :key="button" @click="handleButtonClicked(button)">{{ button }}</button>
       </div>
@@ -87,27 +87,51 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
-const disable1 = ref(false);
-const disable2 = ref(false);
-const disable3 = ref(false);
-const disable4 = ref(false);
-const disable5 = ref(false);
-
+const disable = ref({
+  disable1: false,
+  disable2: false,
+  disable3: false,
+  disable4: false,
+  disable5: false
+});
 
 // const pathID = ref(0);
 // const DisableFunc = () =>{
-//     element.value.forEach((element) => {
-//         if (element == availeblePaths()[pathID]) {
-//             disable '+' pathID+1 = false;
-//             pathID++;
-//         } else {
-//           disable '+' pathID+1 = true;
-          
-//         }
-//     })
+//   elements.value.forEach((element)=>{
+//     if (availeblePaths().includes(element)) {
+//       disable.value[`disable${pathID.value + 1}`] = false;
+//     }
+//     else
+//     {
+//       disable.value[`disable${pathID.value + 1}`] = true;
+//     }
+//     pathID.value++;
+//   })
+  
 
-//     pathID = 0;
+
+//     pathID.value = 0;
 // }
+
+const pathID = ref(0);
+
+const DisableFunc = async () => {
+  try {
+    const paths = await availablePaths();
+    elements.value.forEach((element) => {
+      const elementID = element.id;
+      disable.value[`disable${pathID.value + 1}`] = !paths.some(path => path.LocationID2 === elementID);
+      pathID.value++;
+    });
+    pathID.value = 0;
+  } catch (error) {
+    console.error('Error in DisableFunc:', error);
+  }
+};
+
+
+
+
 
 
 
@@ -131,7 +155,7 @@ const elements = ref([
   { id: 2, class: 'fields', img: '/images/fields.PNG', travelTime: '1 hour', distance: '50 miles'},
   { id: 3, class: 'town', img: '/images/town.PNG', travelTime: '45 mins', distance: '30 miles' },
   { id: 4, class: 'forest', img: '/images/forest.PNG', travelTime: '30 mins', distance: '20 miles' },
-  { id: 3, class: 'military', img: '/images/military.PNG', travelTime: '2 hours', distance: '100 miles' },
+  { id: 5, class: 'military', img: '/images/military.PNG', travelTime: '2 hours', distance: '100 miles' },
   
 ]);
 
@@ -202,7 +226,7 @@ onMounted(() => {
     });
 });
 
-const availeblePaths = () => {
+const availablePaths = () => {
     return axios.get('http://localhost:8000/api/availeblePaths')
     .then(resp =>{
         return resp.data;
@@ -216,6 +240,7 @@ const availeblePaths = () => {
 }
 
 const travelAPI = (to) =>{
+  console.log(to);
   return axios.get(`http://localhost:8000/api/travel/${to} `)
     .then(resp =>{
         return console.log(bazdmeg);
