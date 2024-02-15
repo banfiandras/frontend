@@ -2,6 +2,11 @@
 
 /* HTML STUFF */
 
+.disabled-overlay {
+  pointer-events: none; /* Disable pointer events */
+  opacity: 0.5; /* Optionally, adjust opacity to visually indicate disabled state */
+}
+
 h2 {
   margin-bottom: 15px;
   color: #333;

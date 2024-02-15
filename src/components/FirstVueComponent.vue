@@ -11,15 +11,17 @@
             
               <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
                 <div class="clickable-element btn btn-primary" 
-                 style="background-image: url('/images/fields.PNG')" 
-                 :disabled="disable.disable2" 
+                 style="background-image: url('/images/fields.PNG')"
+                 
                  @click="elementClicked(elements[1])"></div>
+              
               </div>
+
             
               <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
                 <div class="clickable-element btn btn-primary" 
                  style="background-image: url('/images/forest.PNG')" 
-                 :disabled="disable.disable4" 
+                 
                  @click="elementClicked(elements[3])"></div>
               </div>
           </div>
@@ -27,7 +29,7 @@
             <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
               <div class="clickable-element btn btn-primary" 
                  style="background-image: url('/images/temple.PNG')" 
-                 :disabled="disable.disable1" 
+                 
                  @click="elementClicked(elements[0])"></div>
             </div>
           </div>
@@ -37,13 +39,13 @@
             <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
               <div class="clickable-element btn btn-primary" 
                  style="background-image: url('/images/town.PNG')" 
-                 :disabled="disable.disable3" 
+                 
                  @click="elementClicked(elements[2])"></div>
               </div>
               <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
                 <div class="clickable-element btn btn-primary" 
                  style="background-image: url('/images/military.PNG')" 
-                 :disabled="disable.disable5" 
+                 
                  @click="elementClicked(elements[4])"></div>
               </div>
           </div>
