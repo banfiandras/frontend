@@ -10,26 +10,41 @@
           <div class="row">
             
               <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
-                <div class="clickable-element btn btn-primary" style="background-image: url('/images/fields.PNG')" :disable="disable1" @click="elementClicked(elements[1])"></div>
+                <div class="clickable-element btn btn-primary" 
+                 style="background-image: url('/images/fields.PNG')" 
+                 :disabled="disable.disable2" 
+                 @click="elementClicked(elements[1])"></div>
               </div>
             
               <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
-                <div class="clickable-element btn btn-primary" style="background-image: url('/images/forest.PNG')" :disable="disable2" @click="elementClicked(elements[3])"></div>
+                <div class="clickable-element btn btn-primary" 
+                 style="background-image: url('/images/forest.PNG')" 
+                 :disabled="disable.disable4" 
+                 @click="elementClicked(elements[3])"></div>
               </div>
           </div>
           <div class="row justify-content-center">
             <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
-              <div class="clickable-element btn btn-primary" style="background-image: url('/images/temple.PNG')" :disable="disable5" @click="elementClicked(elements[0])"></div>
+              <div class="clickable-element btn btn-primary" 
+                 style="background-image: url('/images/temple.PNG')" 
+                 :disabled="disable.disable1" 
+                 @click="elementClicked(elements[0])"></div>
             </div>
           </div>
           
 
           <div class="row">
             <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
-                <div class="clickable-element btn btn-primary" style="background-image: url('/images/town.PNG')" :disable="disable4" @click="elementClicked(elements[2])"></div>
+              <div class="clickable-element btn btn-primary" 
+                 style="background-image: url('/images/town.PNG')" 
+                 :disabled="disable.disable3" 
+                 @click="elementClicked(elements[2])"></div>
               </div>
               <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
-                <div class="clickable-element btn btn-primary" style="background-image: url('/images/military.PNG')" :disable="disable3" @click="elementClicked(elements[4])"></div>
+                <div class="clickable-element btn btn-primary" 
+                 style="background-image: url('/images/military.PNG')" 
+                 :disabled="disable.disable5" 
+                 @click="elementClicked(elements[4])"></div>
               </div>
           </div>
       </div>
@@ -63,7 +78,7 @@
         <div><p><strong>Travel Time: <span>{{ travelTime }}</span></strong></p></div>
         <div><p><strong>Distance: <span>{{ distance }}</span></strong></p></div>
       </div>
-      <button @click="travel(), travelAPI(selectedElement.id), DisableFunc()" class="btn btn-primary btn-lg btn-block">Travel to {{ selectedElement?.class }}</button>
+      <button  @click="travel(selectedElement.id)"  class="btn btn-primary btn-lg btn-block">Travel to {{ selectedElement?.class }}</button>
       <div class="button-container">
         <button v-for="button in popupButtons" :key="button" @click="handleButtonClicked(button)">{{ button }}</button>
       </div>
@@ -95,39 +110,31 @@ const disable = ref({
   disable5: false
 });
 
-// const pathID = ref(0);
-// const DisableFunc = () =>{
-//   elements.value.forEach((element)=>{
-//     if (availeblePaths().includes(element)) {
-//       disable.value[`disable${pathID.value + 1}`] = false;
-//     }
-//     else
-//     {
-//       disable.value[`disable${pathID.value + 1}`] = true;
-//     }
-//     pathID.value++;
-//   })
+
+ const pathID = ref(0);
+ const DisableFunc = () =>{
+   elements.value.forEach((element)=>{
+    
+    availablePaths().then(resp => {
+      console.log(resp);
+      if (resp.includes(element.id)) {
+      console.log("ok");
+       disable.value[`disable${pathID.value + 1}`] = false;
+    }
+    else
+     {
+      console.log("nem ok");
+       disable.value[`disable${pathID.value + 1}`] = true;
+     }
+    })
+     
+     pathID.value++;
+   })
   
 
 
-//     pathID.value = 0;
-// }
-
-const pathID = ref(0);
-
-const DisableFunc = async () => {
-  try {
-    const paths = await availablePaths();
-    elements.value.forEach((element) => {
-      const elementID = element.id;
-      disable.value[`disable${pathID.value + 1}`] = !paths.some(path => path.LocationID2 === elementID);
-      pathID.value++;
-    });
-    pathID.value = 0;
-  } catch (error) {
-    console.error('Error in DisableFunc:', error);
-  }
-};
+     pathID.value = 0;
+ }
 
 
 
@@ -194,7 +201,8 @@ function handleButtonClicked(button) {
 
 //--------------------------------------------------------travel function-------------------------------------------
 
-function travel() {
+function travel(to) {
+  travelAPI(to);
   console.log('Travel initiated');
   if (selectedElement.value) {
     const routeName = selectedElement.value.class;
@@ -224,6 +232,7 @@ onMounted(() => {
     .catch(error => {
       console.error('Error fetching the last user and god:', error);
     });
+    DisableFunc();
 });
 
 const availablePaths = () => {
