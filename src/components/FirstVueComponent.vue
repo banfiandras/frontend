@@ -176,13 +176,22 @@ const distance = ref('');
 //------------------------------------------------------element clicked--------------------------------------------------
 
 function elementClicked(element) {
-  selectedElement.value = element;
+  if ('disable' + element.id) {
+    console.log("buzi");
+  }
+  else
+  {
+    selectedElement.value = element;
   showPopup.value = true;
   travelTime.value = element.travelTime;
   distance.value = element.distance;
 
   // Toggle transparency state
   element.transparent = !element.transparent;
+  console.log('disable' + element.id);
+  
+  }
+  
 }
 
 function closePopup() {
