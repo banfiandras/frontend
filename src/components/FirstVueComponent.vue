@@ -104,45 +104,28 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
-const disable = ref({
-  disable1: false,
-  disable2: false,
-  disable3: false,
-  disable4: false,
-  disable5: false
-});
 
-
- const pathID = ref(0);
- const DisableFunc = () =>{
-   elements.value.forEach((element)=>{
+//  const pathID = ref(0);
+//  const DisableFunc = () =>{
+//    elements.value.forEach((element)=>{
     
-    availablePaths().then(resp => {
-      console.log(resp);
-      if (resp.includes(element.id)) {
-      console.log("ok");
-       disable.value[`disable${pathID.value + 1}`] = false;
-    }
-    else
-     {
-      console.log("nem ok");
-       disable.value[`disable${pathID.value + 1}`] = true;
-     }
-    })
+//     availablePaths().then(resp => {
+//       console.log(resp);
+//       if (resp.includes(element.id)) {
+//       console.log("ok");
+//        disable.value[`disable${pathID.value + 1}`] = false;
+//     }
+//     else
+//      {
+//       console.log("nem ok");
+//        disable.value[`disable${pathID.value + 1}`] = true;
+//      }
+//     })
      
-     pathID.value++;
-   })
-  
-
-
-     pathID.value = 0;
- }
-
-
-
-
-
-
+//      pathID.value++;
+//    })
+//      pathID.value = 0;
+//  }
 
 
 const gods = ref([]);
@@ -175,27 +158,24 @@ const distance = ref('');
 
 //------------------------------------------------------element clicked--------------------------------------------------
 
-function elementClicked(element) {
-  if ('disable' + element.id) {
-    console.log("buzi");
+async function elementClicked(element) {
+  try {
+    const availableIds = await availablePaths();
+    if (availableIds.includes(element.id)) {
+      selectedElement.value = element;
+      travelTime.value = element.travelTime;
+      distance.value = element.distance;
+      showPopup.value = true;
+    } else {
+      console.log('NO');
+    }
+  } catch (error) {
+    console.error('kys', error);
   }
-  else
-  {
-    selectedElement.value = element;
-  showPopup.value = true;
-  travelTime.value = element.travelTime;
-  distance.value = element.distance;
-
-  // Toggle transparency state
-  element.transparent = !element.transparent;
-  console.log('disable' + element.id);
-  
-  }
-  
 }
 
+
 function closePopup() {
-  // Reset transparency state for all elements
   elements.value.forEach((element) => {
     element.transparent = false;
   });
@@ -214,6 +194,9 @@ function handleButtonClicked(button) {
 
 function travel(to) {
   travelAPI(to);
+  elements.value.forEach(element => {
+  console.log(element.id);
+});
   console.log('Travel initiated');
   if (selectedElement.value) {
     const routeName = selectedElement.value.class;
@@ -222,10 +205,10 @@ function travel(to) {
       router.push({ name: routeName });
       showPopup.value = false;
     } else {
-      console.error('No matching route found for:', routeName);
+      console.error('nincs route', routeName);
     }
   } else {
-    console.error('No element selected');
+    console.error('F');
   }
 }
 
@@ -243,7 +226,6 @@ onMounted(() => {
     .catch(error => {
       console.error('Error fetching the last user and god:', error);
     });
-    DisableFunc();
 });
 
 const availablePaths = () => {
