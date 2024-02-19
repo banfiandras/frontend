@@ -43,7 +43,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { help1, help2, NPCCheck } from '../npcs/npc';
+import { help1, help2, NPCCheck, CurrentFaith } from '../npcs/npc';
 
 const disable1 = ref(false);
 
@@ -54,50 +54,66 @@ function goToMainPage() {
 }
 
 const help1_valasz = () => {
-
-  
   help1(1);
   
   const szovegCIM = document.getElementById('headlineID');
   const szoveg = document.getElementById('npctalk');
-  
-  console.log(NPCCheck(1).value);
 
-  if (szovegCIM && szoveg) {
-    szovegCIM.innerText = 'Thanks for your help!';
-    szoveg.innerText = 'Thank you! I will have much more customers today!';
-  } else {
-    console.error('One or both of the elements (headlineID, npctalk) not found in the DOM.');
-  }
-
-  if (NPCCheck(1)) {
+  NPCCheck(1)
+    // Your logic when data is false
     szovegCIM.innerText = 'I believe now!';
     szoveg.innerText = 'I think I understand why you believe in this god. I will join you!';
-    disable1.value = true; // Update the value of disable1
-  } else {
-    disable1.value = false; // Update the value of disable1
-  }
+    disable1.value = true;
+
+    // Your logic when data is not false
+    szovegCIM.innerText = 'Thanks for your help!';
+    szoveg.innerText = 'Thank you! I will have much more customers today!';
+    disable1.value = false;
+
+  
+  
+
+  
 }
+
+
+
+
+
+
+
 
 const help2_valasz = () => {
   help2(1);
   const szovegCIM = document.getElementById('headlineID');
   const szoveg = document.getElementById('npctalk');
-  if (szovegCIM && szoveg) {
-    szovegCIM.innerText = 'So that\'s how you pray every day?';
-    szoveg.innerText = 'Maybe your god is not that bad, I had much more customers now that we prayed for it!';
-  } else {
-    console.error('One or both of the elements (headlineID, npctalk) not found in the DOM.');
-  }
 
-  if (NPCCheck(1) == false) {
+
+  NPCCheck(1)
+   
+  
+    // Your logic when data is false
     szovegCIM.innerText = 'I believe now!';
     szoveg.innerText = 'I think I understand why you believe in this god. I will join you!';
-    disable1.value = true; // Update the value of disable1
-  } else {
-    disable1.value = false; // Update the value of disable1
-  }
+    disable1.value = true;
+  
+    // Your logic when data is not false
+    szovegCIM.innerText = 'So that\'s how you pray every day?';
+    szoveg.innerText = 'Maybe your god is not that bad, I had much more customers now that we prayed for it!';
+    disable1.value = false;
+  
+
+
+
+  
 }
+const p = ref();
+CurrentFaith(1).then(resp=> {
+  p.value = resp;
+  console.log(p.value);
+})
+
+
 
 
 </script>
