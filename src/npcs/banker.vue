@@ -37,7 +37,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { help1, help2, NPCCheck, CurrentFaith } from '../npcs/npc';
+import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay } from '../npcs/npc';
 
 
 
@@ -49,44 +49,35 @@ function goToMainPage() {
   router.push({ name: 'town' });
 }
 
-const help1_valasz = () => {
-  help1(1);
+const help1_valasz = async () => {
+  disable1.value = true;
+  await help1(1);
   currentFaithFunc();
+  await talkedTo(1);
   disableStuff();
+ 
   
   const szovegCIM = document.getElementById('headlineID');
   const szoveg = document.getElementById('npctalk');
 
   NPCCheck(1)
-    // Your logic when data is false
     szovegCIM.innerText = 'I believe now!';
     szoveg.innerText = 'I think I understand why you believe in this god. I will join you!';
-    disable1.value = true;
 
-    // Your logic when data is not false
     szovegCIM.innerText = 'Thanks for your help!';
     szoveg.innerText = 'Thank you! I will have much more customers today!';
-    disable1.value = false;
 
-  
-  
-
-  
+    await endOFDay();
 }
 
 
-
-
-
-
-
-
-const help2_valasz = () => {
+const help2_valasz = async () => {
   disable1.value = true;
-
-  help2(1);
+  await help2(1);
   currentFaithFunc();
+  await talkedTo(1);
   disableStuff();
+  
   
   const szovegCIM = document.getElementById('headlineID');
   const szoveg = document.getElementById('npctalk');
@@ -94,19 +85,11 @@ const help2_valasz = () => {
 
   NPCCheck(1)
    
-  
-    // Your logic when data is false
-    
-  
-    // Your logic when data is not false
     szovegCIM.innerText = 'So that\'s how you pray every day?';
     szoveg.innerText = 'Maybe your god is not that bad, I had much more customers now that we prayed for it!';
     
-  
 
-
-
-  disable1.value = false;
+  await endOFDay();
 }
 const p = ref(0);
 
@@ -116,30 +99,43 @@ async function disableStuff() {
   const szoveg = document.getElementById('npctalk');
 
 
-  if(a >= 10){
+  if(a >= 10000){ 
     disable1.value = true;
     szovegCIM.innerText = 'I believe now!';
     szoveg.innerText = 'I think I understand why you believe in this god. I will join you!';
     p.value = "Converted!!!! <3 :D";
   
   }
-  else{
-    disable1.value = false;
-  }
 
   
 }
 
 const currentFaithFunc = () =>{
+  
     CurrentFaith(1).then(resp=> {
     p.value = resp;
   })
+
+  
 }
+
+const a = ref(false);
+
 
 
 onMounted(() => {
   currentFaithFunc();
   disableStuff();
+  
+   noMorehelp(1).then(resp=> {
+     a.value = resp;
+     console.log(resp);
+     if (a.value === 1) {
+     disable1.value = true;
+    }
+   })
+   
+   
   
 })
 

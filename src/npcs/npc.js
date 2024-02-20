@@ -51,3 +51,42 @@ export const CurrentFaith = (npcID) =>{
         }
     )
 }
+
+export const talkedTo = (npcID) =>{
+    return axios.get(`http://localhost:8000/api/talkedTo/${npcID}`)
+    .then(resp=>{   
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const endOFDay = () =>{
+    return axios.get(`http://localhost:8000/api/endOfDay`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const noMorehelp = (npcID) =>{
+    return axios.get(`http://localhost:8000/api/noMoreHelp/${npcID}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
