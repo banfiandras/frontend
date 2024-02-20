@@ -27,16 +27,10 @@
         <p class="npc-text" id="npctalk">What can I help you with? You need a loan?</p>
       </div>
     </div>
-    <div>
-      <div class="row">
-        <div class="col-md-6">
-          
-        </div>
-        <div class="col-md-6">
-          
-        </div>
-      </div>
-    </div>
+  </div>
+
+  <div>
+    <p>{{ p }}</p>
   </div>
 </template>
 
@@ -45,7 +39,9 @@ import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import { help1, help2, NPCCheck, CurrentFaith } from '../npcs/npc';
 
-const disable1 = ref(false);
+
+
+let disable1 = ref(false);
 
 const router = useRouter();
 
@@ -55,6 +51,8 @@ function goToMainPage() {
 
 const help1_valasz = () => {
   help1(1);
+  currentFaithFunc();
+  disableStuff();
   
   const szovegCIM = document.getElementById('headlineID');
   const szoveg = document.getElementById('npctalk');
@@ -84,7 +82,12 @@ const help1_valasz = () => {
 
 
 const help2_valasz = () => {
+  disable1.value = true;
+
   help2(1);
+  currentFaithFunc();
+  disableStuff();
+  
   const szovegCIM = document.getElementById('headlineID');
   const szoveg = document.getElementById('npctalk');
 
@@ -93,25 +96,53 @@ const help2_valasz = () => {
    
   
     // Your logic when data is false
-    szovegCIM.innerText = 'I believe now!';
-    szoveg.innerText = 'I think I understand why you believe in this god. I will join you!';
-    disable1.value = true;
+    
   
     // Your logic when data is not false
     szovegCIM.innerText = 'So that\'s how you pray every day?';
     szoveg.innerText = 'Maybe your god is not that bad, I had much more customers now that we prayed for it!';
-    disable1.value = false;
+    
   
 
 
+
+  disable1.value = false;
+}
+const p = ref(0);
+
+async function disableStuff() {
+  const a = await CurrentFaith(1);
+  const szovegCIM = document.getElementById('headlineID');
+  const szoveg = document.getElementById('npctalk');
+
+
+  if(a >= 10){
+    disable1.value = true;
+    szovegCIM.innerText = 'I believe now!';
+    szoveg.innerText = 'I think I understand why you believe in this god. I will join you!';
+    p.value = "Converted!!!! <3 :D";
+  
+  }
+  else{
+    disable1.value = false;
+  }
 
   
 }
-const p = ref();
-CurrentFaith(1).then(resp=> {
-  p.value = resp;
-  console.log(p.value);
+
+const currentFaithFunc = () =>{
+    CurrentFaith(1).then(resp=> {
+    p.value = resp;
+  })
+}
+
+
+onMounted(() => {
+  currentFaithFunc();
+  disableStuff();
+  
 })
+
 
 
 

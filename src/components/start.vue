@@ -33,6 +33,7 @@ const gods = ref([
 const router = useRouter();
 
 const select_god = (godId) => {
+  reset_foryou();
     return Axios.post('http://localhost:8000/api/select-god',{'god_id':godId} )
     .then(resp =>{
         return resp.data;
@@ -43,6 +44,18 @@ const select_god = (godId) => {
         }
     )
 
+}
+
+const reset_foryou = () =>{
+  return Axios.get('http://localhost:8000/api/reset' )
+    .then(resp =>{
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return "fail;"
+        }
+    )
 }
 
 const goToFirst = () =>{
