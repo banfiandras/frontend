@@ -22,12 +22,12 @@
     </div>
       </div>
       <div class="col-md-4">
-        <div class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
+        <div class=" menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
           
           <div class="row">
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12">valami1</button>
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12">valami2</button>
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1">valami1</button>
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2">valami2</button>
           </div>
           
         </div>
@@ -145,6 +145,7 @@ const a = ref(false);
 onMounted(() => {
   currentFaithFunc();
   disableStuff();
+  AbList();
   
    noMorehelp(1).then(resp=> {
      a.value = resp;
@@ -168,10 +169,15 @@ let ability = ref();
 async function AbList(){
   let GodID= await GetGood();
   let asd = await(selectGodAbs(GodID));
-  asd.forEach(a =>{
-    Abilities=(GetGodAb(a));
+  if (await GetGodAb(a) != true) {
+      let b = await GetGodAb(a);
+      console.log(b.god.Name);
+    }
     
-  })
+    
+    
+    
+  
 
 }
 

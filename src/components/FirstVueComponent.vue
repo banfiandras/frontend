@@ -105,27 +105,7 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 
-//  const pathID = ref(0);
-//  const DisableFunc = () =>{
-//    elements.value.forEach((element)=>{
-    
-//     availablePaths().then(resp => {
-//       console.log(resp);
-//       if (resp.includes(element.id)) {
-//       console.log("ok");
-//        disable.value[`disable${pathID.value + 1}`] = false;
-//     }
-//     else
-//      {
-//       console.log("nem ok");
-//        disable.value[`disable${pathID.value + 1}`] = true;
-//      }
-//     })
-     
-//      pathID.value++;
-//    })
-//      pathID.value = 0;
-//  }
+
 
 
 const gods = ref([]);
