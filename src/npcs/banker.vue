@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row justify-content-center">
       <div class="col-md-2">
         <button @click="goToMainPage" class="menu-button">return to town</button>
       </div>
@@ -18,8 +20,25 @@
         </div>
       </div>
     </div>
+      </div>
+      <div class="col-md-4">
+        <div class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
+        <div class="btn-group-vertical">
+          
+          <div class="row">
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12">valami1</button>
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12">valami2</button>
+          </div>
+          
+        </div>
+      </div>
+      </div>
+    </div>
+    
   </div>
 
+
+  <button @click="AbList()">Faszod</button>
   <div>
     <div>
       <p class="headline-npc" id="headlineID">Welcome Prophet!</p>
@@ -37,7 +56,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay } from '../npcs/npc';
+import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, selectGodAbs, GetGodAb, GetGood} from '../npcs/npc';
 
 
 
@@ -138,6 +157,32 @@ onMounted(() => {
    
   
 })
+
+let Abilities = ref({});
+
+
+let valami = ref();
+let ability = ref();
+
+
+async function AbList(){
+  let GodID= await GetGood();
+  let asd = await(selectGodAbs(GodID));
+  asd.forEach(a =>{
+    Abilities=(GetGodAb(a));
+    
+  })
+
+}
+
+
+// let AbilityList = (godID) =>{
+//   const Abs = selectGodAbs(godID);
+//   Abs.forEach(Ab => {
+//     Abilities.Add(GetGodAb(Ab));
+//     console.log(Abilities);
+//   });
+// }
 
 
 

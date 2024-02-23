@@ -161,7 +161,8 @@ const distance = ref('');
 async function elementClicked(element) {
   try {
     const availableIds = await availablePaths();
-    if (availableIds.includes(element.id)) {
+    const gay = await current();
+    if (availableIds.includes(element.id) || element.id == gay) {
       selectedElement.value = element;
       travelTime.value = element.travelTime;
       distance.value = element.distance;
@@ -252,6 +253,19 @@ const travelAPI = (to) =>{
             return "fail;"
         }
     )
+}
+
+const current = () => {
+    return axios.get('http://localhost:8000/api/current')
+    .then(resp =>{
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return "fail;"
+        }
+    )
+
 }
 
 </script>

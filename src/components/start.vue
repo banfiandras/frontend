@@ -34,7 +34,7 @@ const router = useRouter();
 
 const select_god = (godId) => {
   reset_foryou();
-    return Axios.post('http://localhost:8000/api/select-god',{'god_id':godId} )
+    return Axios.get(`http://localhost:8000/api/select-god/${godId}`)
     .then(resp =>{
         return resp.data;
     })

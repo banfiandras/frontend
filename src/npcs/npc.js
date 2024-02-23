@@ -90,3 +90,42 @@ export const noMorehelp = (npcID) =>{
         }
     )
 }
+
+export const selectGodAbs = (godId) =>{
+    return axios.get(`http://localhost:8000/api/selectGodAb/${godId}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const GetGodAb = (abID) =>{
+    return axios.get(`http://localhost:8000/api/GetGodAb/${abID}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const GetGood = ($userID) =>{
+    return axios.get(`http://localhost:8000/api/GetGood/1`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
