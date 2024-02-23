@@ -26,8 +26,8 @@
         <div class="btn-group-vertical">
           
           <div class="row">
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1">valami1</button>
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2">valami2</button>
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1">Hey: {{ valami }}</button>
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2">Hey : {{ ability }}</button>
           </div>
           
         </div>
@@ -145,7 +145,7 @@ const a = ref(false);
 onMounted(() => {
   currentFaithFunc();
   disableStuff();
-  AbList();
+  
   
    noMorehelp(1).then(resp=> {
      a.value = resp;
@@ -164,22 +164,37 @@ let Abilities = ref({});
 
 let valami = ref();
 let ability = ref();
+let abNev =[];// ref([]);
 
+// async function AbList(){
+//   let GodID= await GetGood();
+//   let asd = await(selectGodAbs(GodID));
 
-async function AbList(){
-  let GodID= await GetGood();
-  let asd = await(selectGodAbs(GodID));
-  if (await GetGodAb(a) != true) {
-      let b = await GetGodAb(a);
-      console.log(b.god.Name);
-    }
-    
-    
-    
-    
+//   // await asd.forEach(async(a) => {
+//   //   let Ab = await GetGodAb(a);
+//   //   console.log(Ab.god.Name);
+//   //   abNev.value.push(Ab.god.Name);
+
+//   // });
+//    asd.forEach((a) => {
+//      GetGodAb(a).then(Ab =>{
+//        console.log(Ab.god.Name);
+//        abNev.push(Ab.god.Name);
+//        console.log(abNev);
+//      });
+
+//   });
   
 
-}
+//   console.log(abNev);
+  
+  
+//   valami.value = abNev[0];
+//   // console.log("-------------");
+//   //  console.log(abNev[0]);
+  
+
+// }
 
 
 // let AbilityList = (godID) =>{
