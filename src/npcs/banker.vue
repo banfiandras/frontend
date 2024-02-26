@@ -22,12 +22,13 @@
     </div>
       </div>
       <div class="col-md-4">
-        <div class=" menu-side d-flex flex-column justify-content-start align-items-center">
+        <div class="menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
           
           <div class="row">
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1">Hey: {{ valami }}</button>
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2">Hey : {{ ability }}</button>
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1">{{ CurrentabName }} <br> Description:{{ CurrentabDescription }} <br>  Cost: {{ CurrentabCost }}</button>
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2">{{ CurrentabName2 }} <br> Description: {{ CurrentabDescription2 }} <br>  Cost: {{ CurrentabCost2 }}</button>
+
           </div>
           
         </div>
@@ -38,7 +39,7 @@
   </div>
 
 
-  <button @click="AbList()">Faszod</button>
+  <button @click="AbList()">sdad</button>
   <div>
     <div>
       <p class="headline-npc" id="headlineID">Welcome Prophet!</p>
@@ -57,25 +58,47 @@
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription, GetGodAbEffect, selectGodAbs} from '../npcs/npc';
+import TalkAbs from 'GodTalkAb.js';
 
-const CurrentGod = GetGood();
-const avalebleAB = selectGodAbs(CurrentGod);
+
+let avalebleAB;
+let CurrentGod;
+ async const AbilitzSelect = () =>{
+  let CurrentGod = await GetGood();
+  if (CurrentGodn === 1 ) {
+    
+  } else {
+    
+  }
+}
+
 const  CurrentabName = ref();
 const  CurrentabCost = ref();
 const  CurrentabDescription = ref();
-const  CurrentabEffect = ref();
-const AbList = () =>{
-  // avalebleAB.forEach(abID => {
-  //   CurrentabName = GetGodAbName(abID);
-  //   CurrentabCost = GetGodAbCost(abID);
-  //   CurrentabDescription = GetGodAbDescription(abID);
-  //   CurrentabEffect = GetGodAbEffect(abID);
-  //   console.log(CurrentabName, CurrentabCost, CurrentabDescription, CurrentabEffect);
-  // });
-  console.log(avalebleAB, CurrentGod);
-}
-AbList();
+const  CurrentabName2 = ref();
+const  CurrentabCost2 = ref();
+const  CurrentabDescription2 = ref();
 
+
+async function Ability1(){
+  let CurrentGod = await GetGood();
+  let avalebleAB = await selectGodAbs(CurrentGod);
+  console.log(avalebleAB[0]);
+  CurrentabName.value = await GetGodAbName(avalebleAB[0]);
+  CurrentabCost.value = await GetGodAbCost(avalebleAB[0]);
+  CurrentabDescription.value = await GetGodAbDescription(avalebleAB[0]);
+
+}
+
+async function Ability2(){
+  let CurrentGod = await GetGood();
+  let avalebleAB = await selectGodAbs(CurrentGod);
+  console.log(avalebleAB[1]);
+  CurrentabName2.value = await GetGodAbName(avalebleAB[1]);
+  CurrentabCost2.value = await GetGodAbCost(avalebleAB[1]);
+  CurrentabDescription2.value = await GetGodAbDescription(avalebleAB[1]);
+
+}
 
 
 let disable1 = ref(false);
@@ -163,8 +186,9 @@ const a = ref(false);
 onMounted(() => {
   currentFaithFunc();
   disableStuff();
-  
-  
+  Ability1();
+  Ability2();
+
    noMorehelp(1).then(resp=> {
      a.value = resp;
      console.log(resp);
