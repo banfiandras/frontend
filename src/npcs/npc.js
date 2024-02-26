@@ -129,3 +129,56 @@ export const GetGood = ($userID) =>{
         }
     )
 }
+
+export const GetGodAbName = (abID) =>{
+    return axios.get(`http://localhost:8000/api/GetGodAbName/${abID}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const GetGodAbCost = (abID) =>{
+    return axios.get(`http://localhost:8000/api/GetGodAbCost/${abID}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const GetGodAbDescription = (abID) =>{
+    return axios.get(`http://localhost:8000/api/GetGodAbDescription/${abID}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const GetGodAbEffect = (abID) =>{
+    return axios.get(`http://localhost:8000/api/GetGodAbEffect/${abID}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+

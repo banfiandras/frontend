@@ -56,7 +56,25 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, selectGodAbs, GetGodAb, GetGood} from '../npcs/npc';
+import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription, GetGodAbEffect, selectGodAbs} from '../npcs/npc';
+
+const CurrentGod = GetGood();
+const avalebleAB = selectGodAbs(CurrentGod);
+const  CurrentabName = ref();
+const  CurrentabCost = ref();
+const  CurrentabDescription = ref();
+const  CurrentabEffect = ref();
+const AbList = () =>{
+  // avalebleAB.forEach(abID => {
+  //   CurrentabName = GetGodAbName(abID);
+  //   CurrentabCost = GetGodAbCost(abID);
+  //   CurrentabDescription = GetGodAbDescription(abID);
+  //   CurrentabEffect = GetGodAbEffect(abID);
+  //   console.log(CurrentabName, CurrentabCost, CurrentabDescription, CurrentabEffect);
+  // });
+  console.log(avalebleAB, CurrentGod);
+}
+AbList();
 
 
 
