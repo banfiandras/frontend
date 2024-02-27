@@ -26,8 +26,8 @@
         <div class="btn-group-vertical">
           
           <div class="row">
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1">{{ CurrentabName }} <br> Description:{{ CurrentabDescription }} <br>  Cost: {{ CurrentabCost }}</button>
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2">{{ CurrentabName2 }} <br> Description: {{ CurrentabDescription2 }} <br>  Cost: {{ CurrentabCost2 }}</button>
+            <button v-if="GoodGod" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" @click="Hermes()">{{ CurrentabName }} <br> Description:{{ CurrentabDescription }} <br>  Cost: {{ CurrentabCost }}</button>
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2" >{{ CurrentabName2 }} <br> Description: {{ CurrentabDescription2 }} <br>  Cost: {{ CurrentabCost2 }}</button>
 
           </div>
           
@@ -57,19 +57,28 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription, GetGodAbEffect, selectGodAbs} from '../npcs/npc';
-import TalkAbs from 'GodTalkAb.js';
+import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs} from '../npcs/npc';
+import {convertHermes} from "../npcs/GodTalkAb.js";
 
+const p = ref(0);
 
 let avalebleAB;
 let CurrentGod;
- async const AbilitzSelect = () =>{
-  let CurrentGod = await GetGood();
-  if (CurrentGodn === 1 ) {
-    
-  } else {
-    
+let GoodGod = ref();
+
+async function GodCheck(godID) {
+  console.log(godID);
+  if (godID === 2) {
+    GoodGod.value = true;
   }
+  else{
+    GoodGod.value = false;
+  }
+}
+
+async function Hermes() {
+  await convertHermes(1);
+  await currentFaithFunc();
 }
 
 const  CurrentabName = ref();
@@ -151,7 +160,7 @@ const help2_valasz = async () => {
 
   await endOFDay();
 }
-const p = ref(0);
+
 
 async function disableStuff() {
   const a = await CurrentFaith(1);
@@ -174,6 +183,9 @@ const currentFaithFunc = () =>{
   
     CurrentFaith(1).then(resp=> {
     p.value = resp;
+    if (p.value >= 10) {
+      disable1.value = true;
+    }
   })
 
   
@@ -184,10 +196,17 @@ const a = ref(false);
 
 
 onMounted(() => {
+  GetGood().then((resp)=>{
+    CurrentGod = resp;
+    console.log(CurrentGod);
+    GodCheck(CurrentGod);
+  });
+  
   currentFaithFunc();
   disableStuff();
   Ability1();
   Ability2();
+  
 
    noMorehelp(1).then(resp=> {
      a.value = resp;

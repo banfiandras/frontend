@@ -3,8 +3,8 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 
-export default class TalkAbs{
-    convertHermes  (npcID){
+
+    export const convertHermes=(npcID)=>{
         return axios.get(`http://localhost:8000/api/convert-hermes/${npcID}`)
         .then(resp=>{
             return console.log("done!");
@@ -16,28 +16,27 @@ export default class TalkAbs{
         )
     }
 
-    convertDemeter  (npcID){
-        return axios.get(`http://localhost:8000/api/convert-demeter/${npcID}`)
-        .then(resp=>{
-            return console.log("done!");
-        })
-        .catch(
-            err=>{
-                return console.log("fail");
-            }
-        )
-    }
+    // convertDemeter  (npcID){
+    //     return axios.get(`http://localhost:8000/api/convert-demeter/${npcID}`)
+    //     .then(resp=>{
+    //         return console.log("done!");
+    //     })
+    //     .catch(
+    //         err=>{
+    //             return console.log("fail");
+    //         }
+    //     )
+    // }
 
-    convertAres  (npcID){
-        return axios.get(`http://localhost:8000/api/convert-ares/${npcID}`)
-        .then(resp=>{
-            return console.log("done!");
-        })
-        .catch(
-            err=>{
-                return console.log("fail");
-            }
-        )
-    }
+    // convertAres  (npcID){
+    //     return axios.get(`http://localhost:8000/api/convert-ares/${npcID}`)
+    //     .then(resp=>{
+    //         return console.log("done!");
+    //     })
+    //     .catch(
+    //         err=>{
+    //             return console.log("fail");
+    //         }
+    //     )
+    // }
 
-};
