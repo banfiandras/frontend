@@ -79,6 +79,7 @@ import { ref, onMounted } from 'vue';
 import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon, talkAbility, godInfo} from '../npcs/npc';
 import {convertHermes} from "../npcs/GodTalkAb.js";
 
+
 const gods = [
   {  image: 'images/demeter.PNG'},
   {  image: 'images/hermes.PNG'},
@@ -213,8 +214,8 @@ const help1_valasz = async () => {
       
     })
 
-}
 
+}
 
 const help2_valasz = async () => {
   disable1.value = true;
@@ -236,6 +237,7 @@ const help2_valasz = async () => {
 
   await endOFDay();
 }
+
 
 
 async function disableStuff() {
@@ -292,7 +294,6 @@ onMounted(() => {
      disable1.value = true;
     }
    })
-   
    
   
 })

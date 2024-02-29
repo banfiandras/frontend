@@ -29,3 +29,58 @@
     <router-view/>
   </div>
 </template>
+
+<script setup>
+// export default {
+//   methods: {
+//     updateData() {
+    
+//       console.log('Update data logic');
+//     }
+//   }
+// };
+
+
+const currentFaithPoints = () => {
+  reset_foryou();
+    return Axios.get(`http://localhost:8000/api/currentFaithPoints`)
+    .then(resp =>{
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return "fail;"
+        }
+    )
+
+}
+
+const currentTime = () => {
+  reset_foryou();
+    return Axios.get(`http://localhost:8000/api/currentTime`)
+    .then(resp =>{
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return "fail;"
+        }
+    )
+
+}
+
+const currentDay = () => {
+  reset_foryou();
+    return Axios.get(`http://localhost:8000/api/currentDay`)
+    .then(resp =>{
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return "fail;"
+        }
+    )
+
+}
+
+</script>
