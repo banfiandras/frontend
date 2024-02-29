@@ -1,34 +1,68 @@
 <template>
-    <div class="god-selection">
+  <div class="god-selection">
     <h1>Choose Your God</h1>
     <div class="gods">
-      <div v-for="god in gods" :key="god.id" class="god" @click="select_god(god.id), goToFirst()">
-        <img :src="god.image" :alt="god.name">
-        <h2>{{ god.name }}</h2>
-        <p>{{ god.description }}</p>
+      <div class="god" @click="select_god(1), goToFirst()">
+        <img src="../../images/demeter.PNG" alt="Demeter">
+        <h2>Demeter</h2>
+        <p>{{ god1 }}</p>
+      </div>
+      <div class="god" @click="select_god(2), goToFirst()">
+        <img src="../../images/hermes.PNG" alt="Hermes">
+        <h2>Hermes</h2>
+        <p>{{ god2 }}</p>
+      </div>
+      <div class="god" @click="select_god(3), goToFirst()">
+        <img src="../../images/ares.PNG" alt="Ares">
+        <h2>Ares</h2>
+        <p>{{ god3 }}</p>
       </div>
     </div>
-    <div v-if="selectedGod" class="selected-god-info">
-      <h3>Selected God: {{ selectedGod.name }}</h3>
-      <img :src="selectedGod.image" alt="God Image">
-      <p>{{ selectedGod.description }}</p>
-    </div>
   </div>
-  </template>
+</template>
 
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Axios from 'axios';
+import { onMounted } from 'vue'
 
-const selectedGod = ref(null);
+onMounted(() => {
+  delay(10)
+  dgod1();
+  dgod2(); 
+  dgod3(); 
+
+})
+
+const description = ref();
+
+async function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const god1 = ref();
+
+async function dgod1(){
+  const god1info = await godInfo(1);
+  god1.value = god1info.god.AbilityDescription;
+}
+
+const god2 = ref();
+
+async function dgod2(){
+  const god1info = await godInfo(2);
+  god2.value = god1info.god.AbilityDescription;
+}
+
+const god3 = ref();
+
+async function dgod3(){
+  const god1info = await godInfo(3);
+  god3.value = god1info.god.AbilityDescription;
+}
 
 
-const gods = ref([
-  { id: 1, name: 'Demeter', image: 'images/demeter.PNG', description: 'Description of God1' },
-  { id: 2, name: 'Hermes', image: 'images/hermes.PNG', description: 'Description of God2' },
-  { id: 3, name: 'Ares', image: 'images/ares.PNG', description: 'Description of God3' }
-]);
 
 const router = useRouter();
 
@@ -46,6 +80,19 @@ const select_god = (godId) => {
 
 }
 
+const godInfo = (godID) =>{
+    return Axios.get(`http://localhost:8000/api/godinfo/${godID}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
 const reset_foryou = () =>{
   return Axios.get('http://localhost:8000/api/reset' )
     .then(resp =>{
@@ -57,6 +104,7 @@ const reset_foryou = () =>{
         }
     )
 }
+
 
 const goToFirst = () =>{
   router.push({ name: 'FirstVueComponent' });

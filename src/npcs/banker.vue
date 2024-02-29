@@ -27,7 +27,13 @@
         </div>
         <div class="menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
-          
+          <div>
+            <img :src="godIMG" alt="Placeholder">
+          </div>
+          <div>
+            <p>{{ CurrentGodName }}</p>
+            <p>{{ CurrentGodDesc }}</p>
+          </div>
           <div class="row">
             <button v-if="GoodGod" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" @click="Hermes()">{{ CurrentabName }} <br> Description:{{ CurrentabDescription }} <br>  Cost: {{ CurrentabCost }}</button>
             <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2" @click="Double()">{{ CurrentabName2 }} <br> Description: {{ CurrentabDescription2 }} <br>  Cost: {{ CurrentabCost2 }}</button>
@@ -70,14 +76,32 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon, talkAbility} from '../npcs/npc';
+import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon, talkAbility, godInfo} from '../npcs/npc';
 import {convertHermes} from "../npcs/GodTalkAb.js";
 
-const gods = ref([
-  { id: 1, image: 'images/demeter.PNG'},
-  { id: 2, image: 'images/hermes.PNG'},
-  { id: 3, image: 'images/ares.PNG' }
-]);
+const gods = [
+  {  image: 'images/demeter.PNG'},
+  {  image: 'images/hermes.PNG'},
+  {  image: 'images/ares.PNG' }
+];
+const godIMG = ref();
+
+async function IMGSet(){
+  let CurrentGod = await GetGood();
+  godIMG.value = gods[CurrentGod-1].image;
+}
+
+const CurrentGodName = ref();
+const CurrentGodDesc = ref();
+
+async function GetGodInfo() {
+  let CurrentGod = await GetGood();
+  const gofInfos = await godInfo(CurrentGod);
+  CurrentGodName.value = gofInfos.god.Name;
+  CurrentGodDesc.value = gofInfos.god.AbilityDescription;
+  console.log(gofInfos.god.AbilityDescription);
+  
+}
 
 const p = ref(0);
 
@@ -258,7 +282,8 @@ onMounted(() => {
   disableStuff();
   Ability1();
   Ability2();
-  
+  IMGSet();
+  GetGodInfo();
 
    noMorehelp(1).then(resp=> {
      a.value = resp;

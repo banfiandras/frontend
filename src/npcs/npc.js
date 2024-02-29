@@ -195,3 +195,15 @@ export const talkAbility = (npcID) =>{
     )
 }
 
+export const godInfo = (godID) =>{
+    return axios.get(`http://localhost:8000/api/godinfo/${godID}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
