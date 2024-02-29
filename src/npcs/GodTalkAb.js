@@ -16,27 +16,27 @@ import axios from 'axios';
         )
     }
 
-    // convertDemeter  (npcID){
-    //     return axios.get(`http://localhost:8000/api/convert-demeter/${npcID}`)
-    //     .then(resp=>{
-    //         return console.log("done!");
-    //     })
-    //     .catch(
-    //         err=>{
-    //             return console.log("fail");
-    //         }
-    //     )
-    // }
+    export const convertDemeter = (npcID)=>{
+        return axios.get(`http://localhost:8000/api/convert-demeter/${npcID}`)
+        .then(resp=>{
+            return console.log("done!");
+        })
+        .catch(
+            err=>{
+                return console.log("fail");
+            }
+        )
+    }
 
-    // convertAres  (npcID){
-    //     return axios.get(`http://localhost:8000/api/convert-ares/${npcID}`)
-    //     .then(resp=>{
-    //         return console.log("done!");
-    //     })
-    //     .catch(
-    //         err=>{
-    //             return console.log("fail");
-    //         }
-    //     )
-    // }
+    export const convertAres = (npcID) => {
+        return axios.get(`http://localhost:8000/api/convert-ares/${npcID}`)
+        .then(resp=>{
+            return console.log("done!");
+        })
+        .catch(
+            err=>{
+                return console.log("fail");
+            }
+        )
+    }
 

@@ -169,4 +169,17 @@ export const GetGodAbDescription = (abID) =>{
     )
 }
 
+export const winCon = () =>{
+    return axios.get(`http://localhost:8000/api/winCon`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
 

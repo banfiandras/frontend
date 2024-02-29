@@ -52,15 +52,32 @@
   <div>
     <p>{{ p }}</p>
   </div>
+
+  <div v-if="showPopup" class="popup">
+
+    
+    <h2>Congratulations, you win!</h2>
+    <div class="button-container">
+      <button @click="OkButton()">Ok</button>
+    </div>
+
+  </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs} from '../npcs/npc';
+import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon} from '../npcs/npc';
 import {convertHermes} from "../npcs/GodTalkAb.js";
 
 const p = ref(0);
+
+const showPopup= ref (false);
+
+const OkButton = () =>{
+  router.push( {name: 'start'} );
+  showPopup.value = false;
+}
 
 let avalebleAB;
 let CurrentGod;
@@ -79,6 +96,12 @@ async function GodCheck(godID) {
 async function Hermes() {
   await convertHermes(1);
   await currentFaithFunc();
+  winCon().then(resp =>{
+      if (resp === "GG") {
+        showPopup.value = true;
+      }
+    })
+    console.log(showPopup.value);
 }
 
 const  CurrentabName = ref();
@@ -137,6 +160,12 @@ const help1_valasz = async () => {
     szoveg.innerText = 'Thank you! I will have much more customers today!';
 
     await endOFDay();
+    winCon().then(resp =>{
+      if (resp === "GG") {
+        showPopup.value = true;
+      }
+    })
+
 }
 
 
@@ -226,45 +255,6 @@ let Abilities = ref({});
 let valami = ref();
 let ability = ref();
 let abNev =[];// ref([]);
-
-// async function AbList(){
-//   let GodID= await GetGood();
-//   let asd = await(selectGodAbs(GodID));
-
-//   // await asd.forEach(async(a) => {
-//   //   let Ab = await GetGodAb(a);
-//   //   console.log(Ab.god.Name);
-//   //   abNev.value.push(Ab.god.Name);
-
-//   // });
-//    asd.forEach((a) => {
-//      GetGodAb(a).then(Ab =>{
-//        console.log(Ab.god.Name);
-//        abNev.push(Ab.god.Name);
-//        console.log(abNev);
-//      });
-
-//   });
-  
-
-//   console.log(abNev);
-  
-  
-//   valami.value = abNev[0];
-//   // console.log("-------------");
-//   //  console.log(abNev[0]);
-  
-
-// }
-
-
-// let AbilityList = (godID) =>{
-//   const Abs = selectGodAbs(godID);
-//   Abs.forEach(Ab => {
-//     Abilities.Add(GetGodAb(Ab));
-//     console.log(Abilities);
-//   });
-// }
 
 
 
