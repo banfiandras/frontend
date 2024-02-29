@@ -96,12 +96,13 @@ async function GodCheck(godID) {
 async function Hermes() {
   await convertHermes(1);
   await currentFaithFunc();
-  winCon().then(resp =>{
-      if (resp === "GG") {
-        showPopup.value = true;
-      }
-    })
-    console.log(showPopup.value);
+  const win = await winCon();
+  if (win.message === "GG") {
+    showPopup.value = true;
+
+  }
+  console.log(win.message);
+  console.log(showPopup.value);
 }
 
 const  CurrentabName = ref();
@@ -164,6 +165,7 @@ const help1_valasz = async () => {
       if (resp === "GG") {
         showPopup.value = true;
       }
+      
     })
 
 }
