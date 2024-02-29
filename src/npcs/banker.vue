@@ -22,12 +22,15 @@
     </div>
       </div>
       <div class="col-md-4">
+        <div>
+
+        </div>
         <div class="menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
           
           <div class="row">
             <button v-if="GoodGod" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" @click="Hermes()">{{ CurrentabName }} <br> Description:{{ CurrentabDescription }} <br>  Cost: {{ CurrentabCost }}</button>
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2" >{{ CurrentabName2 }} <br> Description: {{ CurrentabDescription2 }} <br>  Cost: {{ CurrentabCost2 }}</button>
+            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2" @click="Double()">{{ CurrentabName2 }} <br> Description: {{ CurrentabDescription2 }} <br>  Cost: {{ CurrentabCost2 }}</button>
 
           </div>
           
@@ -67,8 +70,14 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon} from '../npcs/npc';
+import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon, talkAbility} from '../npcs/npc';
 import {convertHermes} from "../npcs/GodTalkAb.js";
+
+const gods = ref([
+  { id: 1, image: 'images/demeter.PNG'},
+  { id: 2, image: 'images/hermes.PNG'},
+  { id: 3, image: 'images/ares.PNG' }
+]);
 
 const p = ref(0);
 
@@ -95,6 +104,18 @@ async function GodCheck(godID) {
 
 async function Hermes() {
   await convertHermes(1);
+  await currentFaithFunc();
+  const win = await winCon();
+  if (win.message === "GG") {
+    showPopup.value = true;
+
+  }
+  console.log(win.message);
+  console.log(showPopup.value);
+}
+
+async function Double() {
+  await talkAbility(1);
   await currentFaithFunc();
   const win = await winCon();
   if (win.message === "GG") {

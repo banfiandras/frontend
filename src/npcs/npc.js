@@ -29,7 +29,7 @@ export const help2 = (npcID) => {
 export const NPCCheck = (npcID) =>{
     return axios.get(`http://localhost:8000/api/NpcChech/${npcID}`)
     .then(resp=>{
-        console.log(resp);
+        
         return resp;
     })
     .catch(
@@ -182,4 +182,16 @@ export const winCon = () =>{
     )
 }
 
+export const talkAbility = (npcID) =>{
+    return axios.get(`http://localhost:8000/api/talkAbility/${npcID}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
 
