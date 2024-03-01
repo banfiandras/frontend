@@ -8,13 +8,13 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link">Faith point</a>
+              <a class="nav-link">Faith point: {{ AppFaith }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">Hours</a>
+              <a class="nav-link">Hours: {{ AppTime }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">Current day</a>
+              <a class="nav-link">Current day: {{ AppDay }}</a>
             </li>
           </ul>
           <span class="navbar-text">
@@ -31,56 +31,23 @@
 </template>
 
 <script setup>
-// export default {
-//   methods: {
-//     updateData() {
-    
-//       console.log('Update data logic');
-//     }
-//   }
-// };
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
+import { UpdateHeaderDay, UpdateHeaderTime, UpdateHeaderFaithPoint } from "../src/components/Header";
+import Current from "./components/variable.js";
 
+const AppDay = ref();
+const AppFaith = ref();
+const AppTime = ref();
 
-const currentFaithPoints = () => {
-  reset_foryou();
-    return Axios.get(`http://localhost:8000/api/currentFaithPoints`)
-    .then(resp =>{
-        return resp.data;
-    })
-    .catch(
-        err=>{
-            return "fail;"
-        }
-    )
-
-}
-
-const currentTime = () => {
-  reset_foryou();
-    return Axios.get(`http://localhost:8000/api/currentTime`)
-    .then(resp =>{
-        return resp.data;
-    })
-    .catch(
-        err=>{
-            return "fail;"
-        }
-    )
-
-}
-
-const currentDay = () => {
-  reset_foryou();
-    return Axios.get(`http://localhost:8000/api/currentDay`)
-    .then(resp =>{
-        return resp.data;
-    })
-    .catch(
-        err=>{
-            return "fail;"
-        }
-    )
-
-}
+onMounted(async() => {
+  await UpdateHeaderDay();
+  await UpdateHeaderFaithPoint();
+  await UpdateHeaderTime();
+  AppDay.value = Current.Day.data;
+  AppFaith.value = Current.Faith.data;
+  AppTime.value = Current.Time.data;
+});
 
 </script>

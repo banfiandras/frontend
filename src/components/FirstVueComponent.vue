@@ -103,6 +103,7 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { UpdateHeaderDay, UpdateHeaderTime, UpdateHeaderFaithPoint } from "./Header.js";
 
 
 
@@ -173,7 +174,9 @@ function handleButtonClicked(button) {
 
 //--------------------------------------------------------travel function-------------------------------------------
 
-function travel(to) {
+async function travel(to) {
+  await UpdateHeaderDay();
+  await UpdateHeaderTime();
   travelAPI(to);
   elements.value.forEach(element => {
   console.log(element.id);
