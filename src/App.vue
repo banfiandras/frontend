@@ -36,18 +36,29 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { UpdateHeaderDay, UpdateHeaderTime, UpdateHeaderFaithPoint } from "../src/components/Header";
 import Current from "./components/variable.js";
+import { reactive, computed } from 'vue';
 
-const AppDay = ref();
 const AppFaith = ref();
-const AppTime = ref();
+
+
+const AppDay = computed(() => {
+  console.log(Current.Day);
+  return Current.Day;
+})
+
+const AppTime = computed(() => {
+  return Current.Time;
+})
+
 
 onMounted(async() => {
+  console.log('onMounted');
   await UpdateHeaderDay();
   await UpdateHeaderFaithPoint();
   await UpdateHeaderTime();
-  AppDay.value = Current.Day.data;
-  AppFaith.value = Current.Faith.data;
-  AppTime.value = Current.Time.data;
+  
 });
+
+setInterval()
 
 </script>

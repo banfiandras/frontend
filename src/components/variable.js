@@ -1,7 +1,7 @@
 
 export default class Current{
     
-    static Day;
+    static Day  = "aa";
     static Time;
     static Faith;
 

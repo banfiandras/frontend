@@ -108,7 +108,6 @@ import { UpdateHeaderDay, UpdateHeaderTime, UpdateHeaderFaithPoint } from "./Hea
 
 
 
-
 const gods = ref([]);
 
 const loading = ref(true);
