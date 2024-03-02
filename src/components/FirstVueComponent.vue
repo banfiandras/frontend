@@ -107,7 +107,6 @@ import { UpdateHeaderDay, UpdateHeaderTime, UpdateHeaderFaithPoint } from "./Hea
 
 
 
-
 const gods = ref([]);
 
 const loading = ref(true);
@@ -175,8 +174,10 @@ function handleButtonClicked(button) {
 
 async function travel(to) {
   await UpdateHeaderDay();
+  await UpdateHeaderFaithPoint();
   await UpdateHeaderTime();
   travelAPI(to);
+  console.log(Current.Time.data);
   elements.value.forEach(element => {
   console.log(element.id);
 });

@@ -1,8 +1,9 @@
+import {reactive} from 'vue';
 
-export default class Current{
-    
-    static Day  = "aa";
-    static Time;
-    static Faith;
+const Current = reactive({
+    Day: { data: 1 },
+    Time: { data: 0 },
+    Faith: { data: 0 }
+});
 
-}
+export default Current;
