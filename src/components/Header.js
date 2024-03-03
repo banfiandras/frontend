@@ -1,6 +1,7 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import Current from './variable';
 
 
 //---------------------------------- CODE -------------------------------------
