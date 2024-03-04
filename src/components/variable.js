@@ -6,4 +6,5 @@ const Current = reactive({
     Faith: { data: 0 }
 });
 
+
 export default Current;

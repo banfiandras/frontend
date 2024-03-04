@@ -78,6 +78,8 @@ import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon, talkAbility, godInfo} from '../npcs/npc';
 import {convertHermes} from "../npcs/GodTalkAb.js";
+// import { UpdateHeaderDay, UpdateHeaderTime, UpdateHeaderFaithPoint } from "";
+import { UpdateHeaderDay, UpdateHeaderFaithPoint, UpdateHeaderTime } from "../../src/components/Header.js";
 
 
 const gods = [
@@ -160,6 +162,8 @@ const  CurrentabDescription2 = ref();
 
 
 async function Ability1(){
+  await UpdateHeaderDay();
+  await UpdateHeaderFaithPoint();
   let CurrentGod = await GetGood();
   let avalebleAB = await selectGodAbs(CurrentGod);
   console.log(avalebleAB[0]);
@@ -170,6 +174,8 @@ async function Ability1(){
 }
 
 async function Ability2(){
+  await UpdateHeaderDay();
+  await UpdateHeaderFaithPoint();
   let CurrentGod = await GetGood();
   let avalebleAB = await selectGodAbs(CurrentGod);
   console.log(avalebleAB[1]);
@@ -189,6 +195,10 @@ function goToMainPage() {
 }
 
 const help1_valasz = async () => {
+  exp++;
+  await UpdateHeaderTime();
+  await UpdateHeaderDay();
+  await UpdateHeaderFaithPoint();
   disable1.value = true;
   await help1(1);
   currentFaithFunc();
@@ -218,6 +228,9 @@ const help1_valasz = async () => {
 }
 
 const help2_valasz = async () => {
+  await UpdateHeaderTime();
+  await UpdateHeaderDay();
+  await UpdateHeaderFaithPoint();
   disable1.value = true;
   await help2(1);
   currentFaithFunc();

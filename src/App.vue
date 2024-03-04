@@ -30,10 +30,11 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
 import { UpdateHeaderDay, UpdateHeaderTime, UpdateHeaderFaithPoint } from "../src/components/Header";
 import Current from "./components/variable.js";
+
 
 const AppFaith = ref();
 const AppTime = ref();
@@ -63,9 +64,11 @@ onMounted(async () => {
   }
 });
 
-watch([Current.Faith, Current.Time, Current.Day], () => {
+const route = useRoute();
+
+watch(route, async () => {
   console.log("a");
-  fetchData();
+  await fetchData();
   updateValues();
 });
 </script>
