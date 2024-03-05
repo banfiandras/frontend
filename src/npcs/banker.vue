@@ -48,7 +48,6 @@
   </div>
 
 
-  <button @click="AbList()">sdad</button>
   <div>
     <div>
       <p class="headline-npc" id="headlineID">Welcome Prophet!</p>
@@ -78,16 +77,11 @@ import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon, talkAbility, godInfo} from '../npcs/npc';
 import {convertHermes} from "../npcs/GodTalkAb.js";
-import { useFaithStore } from './../stores/store.js';
+import { useFaithStore, useHelperStore } from './../stores/store.js';
 import { storeToRefs } from 'pinia';
-import { currentDay,currentFaithPoints,currentTime } from '../components/Header.js';
 
 const global = storeToRefs(useFaithStore());
-const fetchData = async () => {
-   global.Day.value = await currentDay(); 
-   global.Faith.value = await currentFaithPoints();
-   global.Time.value = await currentTime(); 
-};
+const helper = storeToRefs(useHelperStore());
 
 const gods = [
   {  image: 'images/demeter.PNG'},
@@ -137,6 +131,7 @@ async function GodCheck(godID) {
 }
 
 async function Hermes() {
+  helper.Helper.value++;
   await convertHermes(1);
   await currentFaithFunc();
   const win = await winCon();
@@ -149,6 +144,7 @@ async function Hermes() {
 }
 
 async function Double() {
+  helper.Helper.value++;
   await talkAbility(1);
   await currentFaithFunc();
   const win = await winCon();
@@ -169,7 +165,7 @@ const  CurrentabDescription2 = ref();
 
 
 async function Ability1(){
-  fetchData();
+  helper.Helper.value++;
   let CurrentGod = await GetGood();
   let avalebleAB = await selectGodAbs(CurrentGod);
   console.log(avalebleAB[0]);
@@ -180,7 +176,7 @@ async function Ability1(){
 }
 
 async function Ability2(){
-  fetchData();
+  helper.Helper.value++;
   let CurrentGod = await GetGood();
   let avalebleAB = await selectGodAbs(CurrentGod);
   console.log(avalebleAB[1]);
@@ -200,7 +196,7 @@ function goToMainPage() {
 }
 
 const help1_valasz = async () => {
-  fetchData();
+  helper.Helper.value++;
   disable1.value = true;
   await help1(1);
   currentFaithFunc();
@@ -218,7 +214,6 @@ const help1_valasz = async () => {
     szovegCIM.innerText = 'Thanks for your help!';
     szoveg.innerText = 'Thank you! I will have much more customers today!';
 
-    await endOFDay();
     winCon().then(resp =>{
       if (resp === "GG") {
         showPopup.value = true;
@@ -230,7 +225,7 @@ const help1_valasz = async () => {
 }
 
 const help2_valasz = async () => {
-  fetchData();
+  helper.Helper.value++;
   disable1.value = true;
   await help2(1);
   currentFaithFunc();

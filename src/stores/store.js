@@ -14,3 +14,16 @@ export const useFaithStore = defineStore('FaithStore', {
       
     },
   })
+
+  export const useHelperStore = defineStore('HelperStore', {
+    state: () => {
+      return { 
+        Helper: 0
+    }
+    },
+    // could also be defined as
+    // state: () => ({ count: 0 })
+    actions: {
+      
+    },
+  })

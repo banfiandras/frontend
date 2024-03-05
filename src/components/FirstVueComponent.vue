@@ -86,7 +86,6 @@
       </div>
 
     </div>
-
     
     <!-- ---------------------------------------selected god------------------------------------- -->
     <div v-if="selectedGod && selectedGod.name">
@@ -103,16 +102,19 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
-import { useFaithStore } from '../stores/store';
+import { useFaithStore, useHelperStore } from '../stores/store';
 import { storeToRefs } from 'pinia';
 import { currentDay,currentFaithPoints,currentTime } from '../components/Header';
+import { endOFDay } from '../npcs/npc';
 
 const global = storeToRefs(useFaithStore());
+const helper = storeToRefs(useHelperStore());
 
 const fetchData = async () => {
    global.Day.value = await currentDay(); 
    global.Faith.value = await currentFaithPoints();
-   global.Time.value = await currentTime(); 
+   global.Time.value = await currentTime();
+      
 };
 
 
@@ -182,7 +184,8 @@ function handleButtonClicked(button) {
 //--------------------------------------------------------travel function-------------------------------------------
 
 async function travel(to) {
-  fetchData();
+  //fetchData();
+  helper.Helper.value++;
   travelAPI(to);
   elements.value.forEach(element => {
   console.log(element.id);

@@ -32,13 +32,16 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
-import { useFaithStore } from './stores/store.js';
+import { useFaithStore, useHelperStore } from './stores/store.js';
 import { storeToRefs } from 'pinia';
 import { currentDay,currentFaithPoints,currentTime } from '../src/components/Header';
+import { endOFDay } from './npcs/npc.js';
 
 const global = storeToRefs(useFaithStore());
 console.log(global.Day.value);
 const isDataLoaded = ref(false);
+
+const helper = storeToRefs(useHelperStore());
 
 const fetchData = async () => {
    global.Day.value = await currentDay(); 
@@ -55,6 +58,16 @@ onMounted(async () => {
     isDataLoaded.value = true;
   } catch(error) {
     console.error('Error fetching data:', error);
+  }
+});
+
+watch(() => helper.Helper.value, async (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    await fetchData();
+    await endOFDay();
+    fetchData();
+    console.log("gay");
+    console.log(helper.Helper.value);
   }
 });
 
