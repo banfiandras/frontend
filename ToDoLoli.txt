@@ -1,0 +1,5 @@
+Refaktorolás:
+- változók egyhelyre szdése
+- metódusok logikus felépítése és elhelyezése
+- backend kérések tömörítése/optimalizálása
+- Laikus számára is átlátható code (commentekkel akár)

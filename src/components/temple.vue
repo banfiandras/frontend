@@ -7,7 +7,7 @@
       <!-- Go Back to Map Button -->
       <button @click="goToMainPage" class="map-button">Return to Map</button>
 
-      <button @click="buttonAction" class="menu-button">Press Me!</button>
+      <button @click="buttonAction" class="menu-button">Sleep</button>
     </div>
     <div class="col-md-8 justify-content-center">
       <h1>This is Temple! Mutherfucker</h1>
@@ -23,16 +23,40 @@
 
   <script setup>
   import { useRouter } from 'vue-router';
+  import { ref, onMounted } from 'vue'; 
+  import axios from 'axios';
 
   const router = useRouter();
 
   const buttonAction = () => {
-    alert('Main Button Pressed!');
+    alert('SLEEEEEEP!');
+    Sleeeep();
   };
 
   function goToMainPage() {
     router.push({ name: 'FirstVueComponent' });
   }
+
+
+  const Sleeeep=()=>{
+    return axios.get(`http://localhost:8000/api/sleep`)
+    .then(resp=>{
+        return resp.data;
+    })
+    .catch( 
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+
+
+
+
+
+
+
   </script>
 
   <style>

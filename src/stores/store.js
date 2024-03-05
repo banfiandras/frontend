@@ -5,7 +5,8 @@ export const useFaithStore = defineStore('FaithStore', {
       return { 
         Faith: 0,
         Time: 0,
-        Day: 0
+        Day: 0,
+        Sleeep: 0
     }
     },
     // could also be defined as
@@ -27,3 +28,5 @@ export const useFaithStore = defineStore('FaithStore', {
       
     },
   })
+
+  

@@ -1,7 +1,6 @@
 
 
 <template>
-  
 <div class="page-container">
   
     
@@ -52,12 +51,7 @@
       </div>
       <div class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
-          <div v-if="selectedGod" class="selected-god-info">
-            
-            <h3>Selected God: {{ selectedGod.name }}</h3>
-            <img :src="selectedGod.image" alt="God Image">
-            <p>{{ selectedGod.description }}</p>
-          </div>
+          
           <div class="row">
             <button class="btn btn-primary mb-2 menu-side-button col-md-12">valami1</button>
             <button class="btn btn-primary mb-2 menu-side-button col-md-12">valami2</button>
@@ -87,11 +81,7 @@
 
     </div>
     
-    <!-- ---------------------------------------selected god------------------------------------- -->
-    <div v-if="selectedGod && selectedGod.name">
-      <h3>{{ selectedGod.name }}</h3>
-      <img v-if="selectedGod.imagePath" :src="selectedGod.imagePath" :alt="selectedGod.name">
-    </div>
+    
     
 
   </div>
@@ -110,12 +100,13 @@ import { endOFDay } from '../npcs/npc';
 const global = storeToRefs(useFaithStore());
 const helper = storeToRefs(useHelperStore());
 
-const fetchData = async () => {
-   global.Day.value = await currentDay(); 
-   global.Faith.value = await currentFaithPoints();
-   global.Time.value = await currentTime();
+// const fetchData = async () => {
+//    global.Day.value = await currentDay(); 
+//    global.Faith.value = await currentFaithPoints();
+//    global.Time.value = await currentTime();
+
       
-};
+// };
 
 
 const gods = ref([]);

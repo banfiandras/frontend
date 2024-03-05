@@ -6,17 +6,21 @@ import axios from 'axios';
 //---------------------------------- CODE -------------------------------------
 
 
-export async function UpdateHeaderDay() {
-    global.Day = await currentDay(); //   :D
-}
+// export async function UpdateHeaderDay() {
+//     global.Day = await currentDay(); //   :D
+// }
 
-export async function UpdateHeaderFaithPoint() {
-    global.Faith = await currentFaithPoints(); //   :D;
-}
+// export async function UpdateHeaderFaithPoint() {
+//     global.Faith = await currentFaithPoints(); //   :D;
+// }
 
-export async function UpdateHeaderTime() {
-    global.Time = await currentTime(); //   :D
-}
+// export async function UpdateHeaderTime() {
+//     global.Time = await currentTime(); //   :D
+// }
+
+// export async function UpdateEnergy() {
+//     global.Sleeep
+// }
 
 
 
@@ -50,6 +54,18 @@ export const currentFaithPoints=()=>{
 
 export const currentTime=()=>{
     return axios.get(`http://localhost:8000/api/currentTime`)
+    .then(resp=>{
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const currentEnergy=()=>{
+    return axios.get(`http://localhost:8000/api/currentEnergy`)
     .then(resp=>{
         return resp.data;
     })

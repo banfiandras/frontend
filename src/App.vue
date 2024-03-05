@@ -14,6 +14,9 @@
             <li class="nav-item">
               <a class="nav-link">Current day: {{ global.Day }}</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link">Current energy: {{ global.Sleeep }}</a>
+            </li>
           </ul>
           <span class="navbar-text">Profile data</span>
         </div>
@@ -21,7 +24,7 @@
     </nav>
 
     <div v-else>
-      Loading...
+      Loli meleg...
     </div>
 
     <router-view/>
@@ -34,7 +37,7 @@ import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
 import { useFaithStore, useHelperStore } from './stores/store.js';
 import { storeToRefs } from 'pinia';
-import { currentDay,currentFaithPoints,currentTime } from '../src/components/Header';
+import { currentDay,currentEnergy,currentFaithPoints,currentTime } from '../src/components/Header';
 import { endOFDay } from './npcs/npc.js';
 
 const global = storeToRefs(useFaithStore());
@@ -47,6 +50,7 @@ const fetchData = async () => {
    global.Day.value = await currentDay(); 
    global.Faith.value = await currentFaithPoints();
    global.Time.value = await currentTime(); 
+   global.Sleeep.value = await currentEnergy();
 };
 
 
