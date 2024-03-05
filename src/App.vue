@@ -6,13 +6,13 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link">Faith point: {{ AppFaith }}</a>
+              <a class="nav-link">Faith point: {{ global.Faith }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">Hours: {{ AppTime }}</a>
+              <a class="nav-link">Hours: {{ global.Time }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">Current day: {{ AppDay }}</a>
+              <a class="nav-link">Current day: {{ global.Day }}</a>
             </li>
           </ul>
           <span class="navbar-text">Profile data</span>
@@ -32,43 +32,30 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
-import { UpdateHeaderDay, UpdateHeaderTime, UpdateHeaderFaithPoint } from "../src/components/Header";
-import Current from "./components/variable.js";
+import { useFaithStore } from './stores/store.js';
+import { storeToRefs } from 'pinia';
+import { currentDay,currentFaithPoints,currentTime } from '../src/components/Header';
 
-
-const AppFaith = ref();
-const AppTime = ref();
-const AppDay = ref();
+const global = storeToRefs(useFaithStore());
+console.log(global.Day.value);
 const isDataLoaded = ref(false);
 
 const fetchData = async () => {
-  await UpdateHeaderDay();
-  await UpdateHeaderFaithPoint();
-  await UpdateHeaderTime();
+   global.Day.value = await currentDay(); 
+   global.Faith.value = await currentFaithPoints();
+   global.Time.value = await currentTime(); 
 };
 
-const updateValues = () => {
-  AppFaith.value = Current.Faith.data;
-  AppTime.value = Current.Time.data;
-  AppDay.value = Current.Day.data;
-};
+
 
 onMounted(async () => {
   try {
     console.log('onMounted');
     await fetchData();
-    updateValues();
     isDataLoaded.value = true;
   } catch(error) {
     console.error('Error fetching data:', error);
   }
 });
 
-const route = useRoute();
-
-watch(route, async () => {
-  console.log("a");
-  await fetchData();
-  updateValues();
-});
 </script>

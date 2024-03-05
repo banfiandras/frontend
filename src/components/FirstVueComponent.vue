@@ -103,9 +103,17 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
-import { UpdateHeaderDay, UpdateHeaderTime, UpdateHeaderFaithPoint } from "./Header.js";
-import Current from './variable.js';
+import { useFaithStore } from '../stores/store';
+import { storeToRefs } from 'pinia';
+import { currentDay,currentFaithPoints,currentTime } from '../components/Header';
 
+const global = storeToRefs(useFaithStore());
+
+const fetchData = async () => {
+   global.Day.value = await currentDay(); 
+   global.Faith.value = await currentFaithPoints();
+   global.Time.value = await currentTime(); 
+};
 
 
 const gods = ref([]);
@@ -174,11 +182,8 @@ function handleButtonClicked(button) {
 //--------------------------------------------------------travel function-------------------------------------------
 
 async function travel(to) {
-  await UpdateHeaderDay();
-  await UpdateHeaderFaithPoint();
-  await UpdateHeaderTime();
+  fetchData();
   travelAPI(to);
-  console.log(Current.Time.data);
   elements.value.forEach(element => {
   console.log(element.id);
 });

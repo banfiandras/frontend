@@ -1,22 +1,21 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
-import Current from './variable';
 
 
 //---------------------------------- CODE -------------------------------------
 
 
 export async function UpdateHeaderDay() {
-    Current.Day = await currentDay(); //   :D
+    global.Day = await currentDay(); //   :D
 }
 
 export async function UpdateHeaderFaithPoint() {
-    Current.Faith = await currentFaithPoints(); //   :D;
+    global.Faith = await currentFaithPoints(); //   :D;
 }
 
 export async function UpdateHeaderTime() {
-    Current.Time = await currentTime(); //   :D
+    global.Time = await currentTime(); //   :D
 }
 
 
@@ -28,7 +27,7 @@ export async function UpdateHeaderTime() {
 export const currentDay=()=>{
     return axios.get(`http://localhost:8000/api/currentDay`)
     .then(resp=>{
-        return resp;
+        return resp.data;
     })
     .catch(
         err=>{
@@ -40,7 +39,7 @@ export const currentDay=()=>{
 export const currentFaithPoints=()=>{
     return axios.get(`http://localhost:8000/api/currentFaithPoints`)
     .then(resp=>{
-        return resp;
+        return resp.data;
     })
     .catch( 
         err=>{
@@ -52,7 +51,7 @@ export const currentFaithPoints=()=>{
 export const currentTime=()=>{
     return axios.get(`http://localhost:8000/api/currentTime`)
     .then(resp=>{
-        return resp;
+        return resp.data;
     })
     .catch(
         err=>{

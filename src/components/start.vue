@@ -27,12 +27,12 @@ import { useRouter } from 'vue-router';
 import Axios from 'axios';
 import { onMounted } from 'vue'
 
-onMounted(() => {
+onMounted(async () => {
   delay(10)
   dgod1();
   dgod2(); 
   dgod3(); 
-
+  await reset_foryou();
 })
 
 const description = ref();
@@ -67,7 +67,7 @@ async function dgod3(){
 const router = useRouter();
 
 const select_god = (godId) => {
-  reset_foryou();
+  
     return Axios.get(`http://localhost:8000/api/select-god/${godId}`)
     .then(resp =>{
         return resp.data;
