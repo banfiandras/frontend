@@ -15,7 +15,7 @@
             <button class="btn btn-primary btn-lg npc-actionbutton" @click="help1_valasz()" :disabled="disable1">Help</button>
           </div>
           <div class="col-md-6">
-            <button class="btn btn-primary btn-lg npc-actionbutton" @click="help2_valasz(1)" :disabled="disable1">Pray</button>
+            <button class="btn btn-primary btn-lg npc-actionbutton" @click="help2_valasz(NPCID)" :disabled="disable1">Pray</button>
           </div>
         </div>
       </div>
@@ -35,8 +35,11 @@
             <p>{{ CurrentGodDesc }}</p>
           </div>
           <div class="row">
-            <button v-if="GoodGod" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" @click="Hermes()">{{ CurrentabName }} <br> Description:{{ CurrentabDescription }} <br>  Cost: {{ CurrentabCost }}</button>
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2" @click="Double()">{{ CurrentabName2 }} <br> Description: {{ CurrentabDescription2 }} <br>  Cost: {{ CurrentabCost2 }}</button>
+            <button  v-if="GoodGod" :disabled="disable2" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" 
+            @click="Hermes()">{{ CurrentabName }} 
+            <br> Description: {{ CurrentabDescription }} 
+            <br>  Cost: {{ CurrentabCost }}</button>
+            <button :disabled="disable2" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2" @click="Double()">{{ CurrentabName2 }} <br> Description: {{ CurrentabDescription2 }} <br>  Cost: {{ CurrentabCost2 }}</button>
 
           </div>
           
@@ -75,13 +78,15 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, talkedTo, endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon, talkAbility, godInfo} from '../npcs/npc';
+import { help1, help2, NPCCheck, CurrentFaith, noMorehelp, Blessed, talkedTo, endOFDay, GetGodAb, GetGood, noMoreBlessing, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon, talkAbility, godInfo} from '../npcs/npc';
 import {convertHermes} from "../npcs/GodTalkAb.js";
 import { useFaithStore, useHelperStore } from './../stores/store.js';
 import { storeToRefs } from 'pinia';
 
 const global = storeToRefs(useFaithStore());
 const helper = storeToRefs(useHelperStore());
+const disable2 = ref(false);
+const NPCID = 1;
 
 const gods = [
   {  image: 'images/demeter.PNG'},
@@ -132,7 +137,9 @@ async function GodCheck(godID) {
 
 async function Hermes() {
   helper.Helper.value++;
-  await convertHermes(1);
+  await Blessed(NPCID);
+  disable2.value = true;
+  await convertHermes(NPCID);
   await currentFaithFunc();
   const win = await winCon();
   if (win.message === "GG") {
@@ -141,11 +148,14 @@ async function Hermes() {
   }
   console.log(win.message);
   console.log(showPopup.value);
+  disableStuff();
 }
 
 async function Double() {
   helper.Helper.value++;
-  await talkAbility(1);
+  await Blessed(NPCID);
+  disable2.value = true;
+  await talkAbility(NPCID);
   await currentFaithFunc();
   const win = await winCon();
   if (win.message === "GG") {
@@ -154,6 +164,7 @@ async function Double() {
   }
   console.log(win.message);
   console.log(showPopup.value);
+  disableStuff();
 }
 
 const  CurrentabName = ref();
@@ -172,7 +183,6 @@ async function Ability1(){
   CurrentabName.value = await GetGodAbName(avalebleAB[0]);
   CurrentabCost.value = await GetGodAbCost(avalebleAB[0]);
   CurrentabDescription.value = await GetGodAbDescription(avalebleAB[0]);
-
 }
 
 async function Ability2(){
@@ -183,7 +193,7 @@ async function Ability2(){
   CurrentabName2.value = await GetGodAbName(avalebleAB[1]);
   CurrentabCost2.value = await GetGodAbCost(avalebleAB[1]);
   CurrentabDescription2.value = await GetGodAbDescription(avalebleAB[1]);
-
+  
 }
 
 
@@ -198,16 +208,16 @@ function goToMainPage() {
 const help1_valasz = async () => {
   helper.Helper.value++;
   disable1.value = true;
-  await help1(1);
+  await help1(NPCID);
   currentFaithFunc();
-  await talkedTo(1);
+  await talkedTo(NPCID);
   disableStuff();
  
   
   const szovegCIM = document.getElementById('headlineID');
   const szoveg = document.getElementById('npctalk');
 
-  NPCCheck(1)
+  NPCCheck(NPCID)
     szovegCIM.innerText = 'I believe now!';
     szoveg.innerText = 'I think I understand why you believe in this god. I will join you!';
 
@@ -227,9 +237,9 @@ const help1_valasz = async () => {
 const help2_valasz = async () => {
   helper.Helper.value++;
   disable1.value = true;
-  await help2(1);
+  await help2(NPCID);
   currentFaithFunc();
-  await talkedTo(1);
+  await talkedTo(NPCID);
   disableStuff();
   
   
@@ -237,7 +247,7 @@ const help2_valasz = async () => {
   const szoveg = document.getElementById('npctalk');
 
 
-  NPCCheck(1)
+  NPCCheck(NPCID)
    
     szovegCIM.innerText = 'So that\'s how you pray every day?';
     szoveg.innerText = 'Maybe your god is not that bad, I had much more customers now that we prayed for it!';
@@ -249,13 +259,14 @@ const help2_valasz = async () => {
 
 
 async function disableStuff() {
-  const a = await CurrentFaith(1);
+  const a = await CurrentFaith(NPCID);
   const szovegCIM = document.getElementById('headlineID');
   const szoveg = document.getElementById('npctalk');
 
 
-  if(a >= 10000){ 
+  if(a >= 10){ 
     disable1.value = true;
+    disable2.value = true;
     szovegCIM.innerText = 'I believe now!';
     szoveg.innerText = 'I think I understand why you believe in this god. I will join you!';
     p.value = "Converted!!!! <3 :D";
@@ -267,7 +278,7 @@ async function disableStuff() {
 
 const currentFaithFunc = () =>{
   
-    CurrentFaith(1).then(resp=> {
+    CurrentFaith(NPCID).then(resp=> {
     p.value = resp;
     if (p.value >= 10) {
       disable1.value = true;
@@ -295,9 +306,15 @@ onMounted(() => {
   IMGSet();
   GetGodInfo();
 
-   noMorehelp(1).then(resp=> {
+   noMoreBlessing(NPCID).then(resp=>{
      a.value = resp;
-     console.log(resp);
+     if (a.value === 1) {
+     disable2.value = true;
+    }
+   })
+
+   noMorehelp(NPCID).then(resp=> {
+     a.value = resp;
      if (a.value === 1) {
      disable1.value = true;
     }

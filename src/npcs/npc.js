@@ -65,6 +65,19 @@ export const talkedTo = (npcID) =>{
     )
 }
 
+export const Blessed = (npcID) =>{
+    return axios.get(`http://localhost:8000/api/Blessed/${npcID}`)
+    .then(resp=>{   
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
 export const endOFDay = () =>{
     return axios.get(`http://localhost:8000/api/endOfDay`)
     .then(resp=>{
@@ -82,6 +95,18 @@ export const noMorehelp = (npcID) =>{
     return axios.get(`http://localhost:8000/api/noMoreHelp/${npcID}`)
     .then(resp=>{
         
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const noMoreBlessing = (npcID) =>{
+    return axios.get(`http://localhost:8000/api/noMoreBlessing/${npcID}`)
+    .then(resp=>{
         return resp.data;
     })
     .catch(

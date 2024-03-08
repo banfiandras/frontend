@@ -75,3 +75,55 @@ export const currentEnergy=()=>{
         }
     )
 }
+
+export const selectMapGodAbs = (godId) =>{
+    return axios.get(`http://localhost:8000/api/selectMapGodAb/${godId}`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const teleport = () =>{
+    return axios.get(`http://localhost:8000/api/teleport`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const teleport2 = () =>{
+    return axios.get(`http://localhost:8000/api/teleport2`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
+
+export const hermesMap = () =>{
+    return axios.get(`http://localhost:8000/api/MapHermes`)
+    .then(resp=>{
+        
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}

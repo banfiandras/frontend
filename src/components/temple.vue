@@ -25,12 +25,18 @@
   import { useRouter } from 'vue-router';
   import { ref, onMounted } from 'vue'; 
   import axios from 'axios';
+  import { useFaithStore, useHelperStore } from './../stores/store.js';
+import { storeToRefs } from 'pinia';
+
+const global = storeToRefs(useFaithStore());
+const helper = storeToRefs(useHelperStore());
 
   const router = useRouter();
 
   const buttonAction = () => {
     alert('SLEEEEEEP!');
     Sleeeep();
+    helper.Helper.value++;
   };
 
   function goToMainPage() {

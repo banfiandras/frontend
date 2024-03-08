@@ -51,12 +51,20 @@
       </div>
       <div class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
-          
-          <div class="row">
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12">valami1</button>
-            <button class="btn btn-primary mb-2 menu-side-button col-md-12">valami2</button>
+          <div>
+            <img :src="godIMG" alt="Placeholder">
           </div>
-          
+          <div>
+            <p>{{ CurrentGodName }}</p>
+            <p>{{ CurrentGodDesc }}</p>
+          </div>
+          <div class="row">
+            <button @click="MapAbSelect()" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" 
+            >
+            {{ CurrentabName }} 
+            <br> Description: {{ CurrentabDescription }} 
+            <br>  Cost: {{ CurrentabCost }}</button>
+          </div>
         </div>
       </div>
   </div>
@@ -94,11 +102,81 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { useFaithStore, useHelperStore } from '../stores/store';
 import { storeToRefs } from 'pinia';
-import { currentDay,currentFaithPoints,currentTime } from '../components/Header';
-import { endOFDay } from '../npcs/npc';
+import { currentDay,currentFaithPoints,currentTime, selectMapGodAbs, teleport, teleport2, hermesMap} from '../components/Header';
+import { endOFDay, GetGodAb, GetGood, GetGodAbName, GetGodAbCost, GetGodAbDescription,  selectGodAbs, winCon, talkAbility, godInfo } from '../npcs/npc';
 
 const global = storeToRefs(useFaithStore());
 const helper = storeToRefs(useHelperStore());
+
+async function MapAbSelect() {
+  helper.Helper.value++;
+  let CurrentGod = await GetGood();
+  if (CurrentGod===1) {
+    await teleport2();
+    router.push({ name: 'fields' });
+  }
+  if (CurrentGod === 2) {
+    hermesMap();
+  }
+  if (CurrentGod === 3) {
+    await teleport();
+    router.push({ name: 'military' });
+  }
+  
+}
+
+
+
+const  CurrentabName = ref();
+const  CurrentabCost = ref();
+const  CurrentabDescription = ref();
+
+async function Ability1(){
+  helper.Helper.value++;
+  let CurrentGod = await GetGood();
+  let avalebleAB = await selectMapGodAbs(CurrentGod);
+  console.log(avalebleAB);
+  CurrentabName.value = await GetGodAbName(avalebleAB);
+  CurrentabCost.value = await GetGodAbCost(avalebleAB);
+  CurrentabDescription.value = await GetGodAbDescription(avalebleAB);
+
+}
+
+
+
+
+
+const godIMG = ref();
+
+const gods = [
+  {  image: 'images/demeter.PNG'},
+  {  image: 'images/hermes.PNG'},
+  {  image: 'images/ares.PNG' }
+];
+async function IMGSet(){
+  let CurrentGod = await GetGood();
+  godIMG.value = gods[CurrentGod-1].image;
+}
+
+
+
+const CurrentGodName = ref();
+const CurrentGodDesc = ref();
+
+async function GetGodInfo() {
+  let CurrentGod = await GetGood();
+  const gofInfos = await godInfo(CurrentGod);
+  CurrentGodName.value = gofInfos.god.Name;
+  CurrentGodDesc.value = gofInfos.god.AbilityDescription;
+  console.log(gofInfos.god.AbilityDescription);
+  IMGSet();
+  
+}
+
+
+
+
+
 
 // const fetchData = async () => {
 //    global.Day.value = await currentDay(); 
@@ -109,7 +187,6 @@ const helper = storeToRefs(useHelperStore());
 // };
 
 
-const gods = ref([]);
 
 const loading = ref(true);
 
@@ -200,7 +277,11 @@ async function travel(to) {
 
 //--------------------------------------------------------DATASERVICE--------------------------------------------------------
 
-onMounted(() => {
+onMounted(async () => {
+  
+
+
+
   axios.get('/api/last-user-god')
     .then(response => {
       if (response.data && response.data.selectedGod) {
@@ -210,6 +291,9 @@ onMounted(() => {
     .catch(error => {
       console.error('Error fetching the last user and god:', error);
     });
+
+    GetGodInfo();
+    Ability1();
 });
 
 const availablePaths = () => {
