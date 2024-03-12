@@ -130,10 +130,12 @@ const goToFirst = () =>{
     margin: 10px;
     padding: 10px;
     border: 1px solid #ccc;
+    background-color: grey;
   }
 
   .god img {
-    width: 300px;
-    height: 100px;
+    width: 400px;
+    height: 400px;
+    border-radius: 20%;
   }
   </style>

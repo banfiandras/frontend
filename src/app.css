@@ -1,5 +1,10 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap');
 
+
+*{
+  font-family: "Alegreya SC", serif;
+}
 /* HTML STUFF */
 
 .disabled-overlay {
@@ -79,7 +84,7 @@ html, body {
   padding: 10px 15px;
   cursor: pointer;
   border: none;
-  background-color: #28a745;
+  background-color: grey;
   color: #fff;
   border-radius: 5px;
   font-family: 'Times New Roman', Times, serif;
@@ -194,7 +199,7 @@ html, body {
 
 /* MENU */
 .menu-side{
-  background-color: #28a745;
+  background-color: grey;
 }
 
 .menu-side-button{
@@ -202,7 +207,7 @@ html, body {
   color: black;
   border: black;
   border-width: 3px;
-  background-color: #28a745;
+  background-color: grey;
 }
 
 .menu{
@@ -222,7 +227,7 @@ html, body {
   font-size: 18px;
   cursor: pointer;
   margin-bottom: 10px;
-  background-color: #4CAF50;
+  background-color: grey;
   color: white;
   border: none;
   border-radius: 5px;
@@ -230,11 +235,11 @@ html, body {
 }
 
 .menu-button:hover, .map-button:hover {
-   background-color: #45a049
+   background-color: grey;
   }
 
 .menu-button:active, .map-button:active {
-    background-color: #3e8e41;
+    background-color: grey;
     box-shadow: 0 2px #666;
     transform: translateY(2px);
   }
@@ -248,7 +253,7 @@ html, body {
 /* HEADLINE */
 
 .headline{
-  background-color: #28a745;
+  background-color: grey;
   margin: 0;
   padding: 0;
 }
@@ -265,4 +270,14 @@ html, body {
     background-color: #f7f7f7;
     border: 1px solid #ccc;
     margin-right: 20px;
+  }
+
+  .god2 img {
+    width: 400px;
+    height: 400px;
+    border-radius: 20%;
+  }
+
+  .btn2{
+    border: 1px black;
   }

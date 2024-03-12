@@ -51,7 +51,7 @@
       </div>
       <div class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
-          <div>
+          <div class="god2">
             <img :src="godIMG" alt="Placeholder">
           </div>
           <div>
@@ -59,7 +59,7 @@
             <p>{{ CurrentGodDesc }}</p>
           </div>
           <div class="row">
-            <button @click="MapAbSelect()" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" 
+            <button @click="MapAbSelect()" class="btn btn-primary mb-2 menu-side-button col-md-12 btn2" id="button1" 
             >
             {{ CurrentabName }} 
             <br> Description: {{ CurrentabDescription }} 
@@ -79,8 +79,9 @@
       <button class="close-button" @click="closePopup">&times;</button>
       <h2>Travel Information</h2>
       <div class="info">
-        <div><p><strong>Travel Time: <span>{{ travelTime }}</span></strong></p></div>
-        <div><p><strong>Distance: <span>{{ distance }}</span></strong></p></div>
+        <div><p><strong>Travel Time: {{ traveltime }} h</strong></p></div>
+        
+        
       </div>
       <button  @click="travel(selectedElement.id)"  class="btn btn-primary btn-lg btn-block">Travel to {{ selectedElement?.class }}</button>
       <div class="button-container">
@@ -135,7 +136,7 @@ async function Ability1(){
   helper.Helper.value++;
   let CurrentGod = await GetGood();
   let avalebleAB = await selectMapGodAbs(CurrentGod);
-  console.log(avalebleAB);
+  // console.log(avalebleAB);
   CurrentabName.value = await GetGodAbName(avalebleAB);
   CurrentabCost.value = await GetGodAbCost(avalebleAB);
   CurrentabDescription.value = await GetGodAbDescription(avalebleAB);
@@ -168,7 +169,7 @@ async function GetGodInfo() {
   const gofInfos = await godInfo(CurrentGod);
   CurrentGodName.value = gofInfos.god.Name;
   CurrentGodDesc.value = gofInfos.god.AbilityDescription;
-  console.log(gofInfos.god.AbilityDescription);
+  // console.log(gofInfos.god.AbilityDescription);
   IMGSet();
   
 }
@@ -201,36 +202,37 @@ const selectedGod = ref(null);
 //------------------------------------------------elements------------------------------------------------
 
 const elements = ref([
-  { id: 1, class: 'temple', img: '/images/temple.PNG', travelTime: '1.5 hours', distance: '70 miles' },
-  { id: 2, class: 'fields', img: '/images/fields.PNG', travelTime: '1 hour', distance: '50 miles'},
-  { id: 3, class: 'town', img: '/images/town.PNG', travelTime: '45 mins', distance: '30 miles' },
-  { id: 4, class: 'forest', img: '/images/forest.PNG', travelTime: '30 mins', distance: '20 miles' },
-  { id: 5, class: 'military', img: '/images/military.PNG', travelTime: '2 hours', distance: '100 miles' },
+  { id: 1, class: 'temple', img: '/images/temple.PNG', pathID: 1},
+  { id: 2, class: 'fields', img: '/images/fields.PNG', pathID: 2},
+  { id: 3, class: 'town', img: '/images/town.PNG', pathID: 3},
+  { id: 4, class: 'forest', img: '/images/forest.PNG', pathID: 4 },
+  { id: 5, class: 'military', img: '/images/military.PNG', pathID: 5 },
   
 ]);
 
 const showPopup = ref(false);
 const popupButtons = ref([]);
-const travelTime = ref('');
+
 const distance = ref('');
 
 //------------------------------------------------------element clicked--------------------------------------------------
-
+const traveltime= ref();
 async function elementClicked(element) {
+  
+  // console.log(travelTime); 
   try {
     const availableIds = await availablePaths();
     const gay = await current();
     if (availableIds.includes(element.id) || element.id == gay) {
       selectedElement.value = element;
-      travelTime.value = element.travelTime;
-      distance.value = element.distance;
       showPopup.value = true;
     } else {
-      console.log('NO');
+      // console.log('NO'); 
     }
   } catch (error) {
     console.error('kys', error);
   }
+  traveltime.value = await travelTime(element.id);
 }
 
 
@@ -245,7 +247,7 @@ function closePopup() {
 //--------------------------------------------------------button clicked----------------------------------------------
 
 function handleButtonClicked(button) {
-  console.log('Button clicked:', button);
+  // console.log('Button clicked:', button); 
   showPopup.value = false;
 }
 
@@ -255,10 +257,11 @@ async function travel(to) {
   //fetchData();
   helper.Helper.value++;
   travelAPI(to);
+  
   elements.value.forEach(element => {
-  console.log(element.id);
+  // console.log(element.id);
 });
-  console.log('Travel initiated');
+  // console.log('Travel initiated');
   if (selectedElement.value) {
     const routeName = selectedElement.value.class;
 
@@ -310,7 +313,7 @@ const availablePaths = () => {
 }
 
 const travelAPI = (to) =>{
-  console.log(to);
+  // console.log(to);
   return axios.get(`http://localhost:8000/api/travel/${to} `)
     .then(resp =>{
         return console.log(bazdmeg);
@@ -322,9 +325,22 @@ const travelAPI = (to) =>{
     )
 }
 
+const travelTime  = (pathID) =>{
+  return axios.get(`http://localhost:8000/api/travelTime/${pathID} `)
+    .then(resp =>{
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return "fail;"
+        }
+    )
+}
+
 const current = () => {
     return axios.get('http://localhost:8000/api/current')
     .then(resp =>{
+        console.log("kkkkkkkk");
         return resp.data;
     })
     .catch(

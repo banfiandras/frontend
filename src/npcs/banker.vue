@@ -27,7 +27,7 @@
         </div>
         <div class="menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
-          <div>
+          <div class="god2">
             <img :src="godIMG" alt="Placeholder">
           </div>
           <div>
