@@ -6,9 +6,9 @@
       <div class="col-md-2">
         <button @click="goToMainPage" class="menu-button">return to town</button>
       </div>
-      <div class="col-md-10 justify-content-center">
-        <div class="npc-talk-img justify-content-center lign-items-center align-items-center">
-          <img src="../../images/banker.PNG">
+      <div class="col-md-10 ">
+        <div class="npc-talk-img  lign-items-center align-items-center">
+          <img class="npc-talk-img justify-constent-center" src="../../images/banker.PNG">
         </div>
         <div class="row">
           <div class="col-md-6">
