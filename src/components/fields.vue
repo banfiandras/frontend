@@ -40,7 +40,11 @@
       class="clickable-npc col-md-6 col-lg-3"
       :style="{ 'background-image': 'url(' + npc.img + ')' }"
       @click="talkToNpc(npc)"
-    ></div>
+    >
+      <div>{{ npc.name }}</div>
+    </div>
+    
+    
   </div>
 </div>
    
