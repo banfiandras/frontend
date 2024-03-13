@@ -1,20 +1,29 @@
 <template>
 
-  <div class="row">
+    <div class="row">
     
-    <div class="menu cpl-md-4 justify-content-center">
-      
-      <!-- Go Back to Map Button -->
-      <button @click="goToMainPage" class="map-button">Return to Map</button>
+      <div class="menu cpl-md-4 justify-content-center">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                  <button @click="goToMainPage" class="map-button">Return to Map</button>
+                </div>
+                <div class="col-md-12">
+                  <button @click="buttonAction" class="menu-button">Sleep</button>
+                </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <h1>This is Temple! Mutherfucker</h1>
+            
+          </div>
 
-      <button @click="buttonAction" class="menu-button">Sleep</button>
-    </div>
-    <div class="col-md-8 justify-content-center">
-      <h1>This is Temple! Mutherfucker</h1>
-    </div>
-    
-  </div>
-  <div class="temple-img">
+        </div>
+      </div>
+       
+      </div>
+    <div class="temple-img">
       <img src="../../images/temple.PNG">
     </div>
 
@@ -84,7 +93,6 @@ const helper = storeToRefs(useHelperStore());
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
   }
   
 

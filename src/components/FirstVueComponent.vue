@@ -79,7 +79,7 @@
       <button class="close-button" @click="closePopup">&times;</button>
       <h2>Travel Information</h2>
       <div class="info">
-        <div><p><strong>Travel Time: {{ traveltime }} h</strong></p></div>
+        <div><p><strong>Travel Time: {{ traveltime* -1 }} h</strong></p></div>
         
         
       </div>
