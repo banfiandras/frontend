@@ -7,6 +7,11 @@
 }
 /* HTML STUFF */
 
+.mapNames{
+  color: black;
+  font-size: large;
+}
+
 .disabled-overlay {
   pointer-events: none; /* Disable pointer events */
   opacity: 0.5; /* Optionally, adjust opacity to visually indicate disabled state */

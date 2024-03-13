@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav v-if="isDataLoaded" class="navbar navbar-expand-lg bg-body-tertiary headline">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary headline">
       <div class="container-fluid headline">
         <a class="navbar-brand" href="#">God and Prophet</a>
         <div class="collapse navbar-collapse" id="navbarText">
@@ -23,9 +23,7 @@
       </div>
     </nav>
 
-    <div v-else>
-      Loli meleg...
-    </div>
+    
 
     <router-view/>
   </div>

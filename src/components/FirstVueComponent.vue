@@ -12,8 +12,9 @@
                 <div class="clickable-element btn btn-primary" 
                  style="background-image: url('/images/fields.PNG')"
                  
-                 @click="elementClicked(elements[1])"></div>
-              
+                 @click="elementClicked(elements[1])">
+                 <div class="mapNames">{{ elements[1].name }}</div></div>
+                
               </div>
 
             
@@ -21,7 +22,9 @@
                 <div class="clickable-element btn btn-primary" 
                  style="background-image: url('/images/forest.PNG')" 
                  
-                 @click="elementClicked(elements[3])"></div>
+                 @click="elementClicked(elements[3])">
+                 <div class="mapNames">{{ elements[3].name }}</div></div>
+                 
               </div>
           </div>
           <div class="row justify-content-center">
@@ -29,7 +32,9 @@
               <div class="clickable-element btn btn-primary" 
                  style="background-image: url('/images/temple.PNG')" 
                  
-                 @click="elementClicked(elements[0])"></div>
+                 @click="elementClicked(elements[0])">
+                 <div class="mapNames">{{ elements[0].name }}</div></div>
+                 
             </div>
           </div>
           
@@ -39,17 +44,21 @@
               <div class="clickable-element btn btn-primary" 
                  style="background-image: url('/images/town.PNG')" 
                  
-                 @click="elementClicked(elements[2])"></div>
+                 @click="elementClicked(elements[2])">
+                 <div class="mapNames">{{ elements[2].name }}</div></div>
+                 
               </div>
               <div class="col-md-6 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
                 <div class="clickable-element btn btn-primary" 
                  style="background-image: url('/images/military.PNG')" 
                  
-                 @click="elementClicked(elements[4])"></div>
+                 @click="elementClicked(elements[4])">
+                 <div class="mapNames">{{ elements[4].name }}</div></div>
+                 
               </div>
           </div>
       </div>
-      <div class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
+      <nav v-if="showLoading" class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
           <div class="god2">
             <img :src="godIMG" alt="Placeholder">
@@ -66,6 +75,9 @@
             <br>  Cost: {{ CurrentabCost }}</button>
           </div>
         </div>
+      </nav>
+      <div v-else>
+        <Loading class=""></Loading>
       </div>
   </div>
 
@@ -202,11 +214,11 @@ const selectedGod = ref(null);
 //------------------------------------------------elements------------------------------------------------
 
 const elements = ref([
-  { id: 1, class: 'temple', img: '/images/temple.PNG', pathID: 1},
-  { id: 2, class: 'fields', img: '/images/fields.PNG', pathID: 2},
-  { id: 3, class: 'town', img: '/images/town.PNG', pathID: 3},
-  { id: 4, class: 'forest', img: '/images/forest.PNG', pathID: 4 },
-  { id: 5, class: 'military', img: '/images/military.PNG', pathID: 5 },
+  { id: 1, class: 'temple', img: '/images/temple.PNG', pathID: 1, name: 'temple'},
+  { id: 2, class: 'fields', img: '/images/fields.PNG', pathID: 2, name: 'fields'},
+  { id: 3, class: 'town', img: '/images/town.PNG', pathID: 3, name: 'town'},
+  { id: 4, class: 'forest', img: '/images/forest.PNG', pathID: 4, name: 'forest'},
+  { id: 5, class: 'military', img: '/images/military.PNG', pathID: 5, name: 'military' },
   
 ]);
 
@@ -279,9 +291,9 @@ async function travel(to) {
 
 
 //--------------------------------------------------------DATASERVICE--------------------------------------------------------
-
+const showLoading = ref(false);
 onMounted(async () => {
-  
+    
 
 
 
@@ -290,13 +302,13 @@ onMounted(async () => {
       if (response.data && response.data.selectedGod) {
         selectedGod.value = response.data.selectedGod;
       }
+      showLoading.value = true;
     })
     .catch(error => {
       console.error('Error fetching the last user and god:', error);
     });
 
     GetGodInfo();
-    Ability1();
 });
 
 const availablePaths = () => {

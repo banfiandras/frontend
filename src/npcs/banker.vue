@@ -2,49 +2,46 @@
   <div>
     <div class="row">
       <div class="col-md-8">
-        <div class="row justify-content-center">
-      <div class="col-md-2">
-        <button @click="goToMainPage" class="menu-button">return to town</button>
-      </div>
-      <div class="col-md-10 ">
-        <div class="npc-talk-img  lign-items-center align-items-center">
-          <img class="npc-talk-img justify-constent-center" src="../../images/banker.PNG">
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <button class="btn btn-primary btn-lg npc-actionbutton" @click="help1_valasz()" :disabled="disable1">Help</button>
+          <div class="row justify-content-center">
+          <div class="col-md-2">
+            <button @click="goToMainPage" class="menu-button">return to town</button>
           </div>
-          <div class="col-md-6">
-            <button class="btn btn-primary btn-lg npc-actionbutton" @click="help2_valasz(NPCID)" :disabled="disable1">Pray</button>
+          <div class="col-md-10 ">
+            <div class="npc-talk-img  lign-items-center align-items-center">
+              <img class="npc-talk-img justify-constent-center" src="../../images/banker.PNG">
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <button class="btn btn-primary btn-lg npc-actionbutton" @click="help1_valasz()" :disabled="disable1">Help</button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-primary btn-lg npc-actionbutton" @click="help2_valasz(NPCID)" :disabled="disable1">Pray</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
       </div>
       <div class="col-md-4">
-        <div>
+        <div class="menu-side d-flex flex-column justify-content-center align-items-center">
+          <div class="btn-group-vertical">
+            <div class="god2">
+              <img :src="godIMG" alt="Placeholder">
+            </div>
+            <div>
+              <p>{{ CurrentGodName }}</p>
+              <p>{{ CurrentGodDesc }}</p>
+            </div>
+            <div class="row">
+              <button  v-if="GoodGod" :disabled="disable2" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" 
+              @click="Hermes()">{{ CurrentabName }} 
+              <br> Description: {{ CurrentabDescription }} 
+              <br>  Cost: {{ CurrentabCost }}</button>
+              <button :disabled="disable2" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2" @click="Double()">{{ CurrentabName2 }} <br> Description: {{ CurrentabDescription2 }} <br>  Cost: {{ CurrentabCost2 }}</button>
 
-        </div>
-        <div class="menu-side d-flex flex-column justify-content-start align-items-center">
-        <div class="btn-group-vertical">
-          <div class="god2">
-            <img :src="godIMG" alt="Placeholder">
-          </div>
-          <div>
-            <p>{{ CurrentGodName }}</p>
-            <p>{{ CurrentGodDesc }}</p>
-          </div>
-          <div class="row">
-            <button  v-if="GoodGod" :disabled="disable2" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" 
-            @click="Hermes()">{{ CurrentabName }} 
-            <br> Description: {{ CurrentabDescription }} 
-            <br>  Cost: {{ CurrentabCost }}</button>
-            <button :disabled="disable2" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button2" @click="Double()">{{ CurrentabName2 }} <br> Description: {{ CurrentabDescription2 }} <br>  Cost: {{ CurrentabCost2 }}</button>
-
-          </div>
+            </div>
           
+          </div>
         </div>
-      </div>
       </div>
     </div>
     
