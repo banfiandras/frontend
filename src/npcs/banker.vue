@@ -23,7 +23,7 @@
       </div>
       <div class="col-md-4">
         <div class="menu-side d-flex flex-column justify-content-center align-items-center">
-          <div class="btn-group-vertical">
+          <div>
             <div class="god2">
               <img :src="godIMG" alt="Placeholder">
             </div>
@@ -31,7 +31,7 @@
               <p>{{ CurrentGodName }}</p>
               <p>{{ CurrentGodDesc }}</p>
             </div>
-            <div class="row">
+            <div class="row btn-group-vertical">
               <button  v-if="GoodGod" :disabled="disable2" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" 
               @click="Hermes()">{{ CurrentabName }} 
               <br> Description: {{ CurrentabDescription }} 

@@ -58,7 +58,7 @@
               </div>
           </div>
       </div>
-      <nav v-if="showLoading" class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
+      <nav  class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
         <div class="btn-group-vertical">
           <div class="god2">
             <img :src="godIMG" alt="Placeholder">
@@ -76,9 +76,7 @@
           </div>
         </div>
       </nav>
-      <div v-else>
-        <Loading class=""></Loading>
-      </div>
+      
   </div>
 
     
@@ -91,7 +89,7 @@
       <button class="close-button" @click="closePopup">&times;</button>
       <h2>Travel Information</h2>
       <div class="info">
-        <div><p><strong>Travel Time: {{ traveltime* -1 }} h</strong></p></div>
+        <div><p><strong>Travel Time: {{ traveltime }} h</strong></p></div>
         
         
       </div>
@@ -291,7 +289,7 @@ async function travel(to) {
 
 
 //--------------------------------------------------------DATASERVICE--------------------------------------------------------
-const showLoading = ref(false);
+
 onMounted(async () => {
     
 
@@ -302,13 +300,14 @@ onMounted(async () => {
       if (response.data && response.data.selectedGod) {
         selectedGod.value = response.data.selectedGod;
       }
-      showLoading.value = true;
+      
     })
     .catch(error => {
       console.error('Error fetching the last user and god:', error);
     });
 
     GetGodInfo();
+    Ability1();
 });
 
 const availablePaths = () => {
