@@ -90,7 +90,7 @@ export const selectMapGodAbs = (godId) =>{
 }
 
 export const teleport = () =>{
-    return axios.get(`http://localhost:8000/api/teleport`)
+    return axios.post(`http://localhost:8000/api/teleport`)
     .then(resp=>{
         
         return resp.data;
@@ -103,7 +103,7 @@ export const teleport = () =>{
 }
 
 export const teleport2 = () =>{
-    return axios.get(`http://localhost:8000/api/teleport2`)
+    return axios.post(`http://localhost:8000/api/teleport2`)
     .then(resp=>{
         
         return resp.data;
@@ -116,7 +116,7 @@ export const teleport2 = () =>{
 }
 
 export const hermesMap = () =>{
-    return axios.get(`http://localhost:8000/api/MapHermes`)
+    return axios.post(`http://localhost:8000/api/MapHermes`)
     .then(resp=>{
         
         return resp.data;
