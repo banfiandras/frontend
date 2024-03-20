@@ -14,11 +14,13 @@ import Soldier from '../npcs/soldier.vue';
 import Wanderer from '../npcs/wanderer.vue';
 import Warlord from '../npcs/warlord.vue';
 import Start from '../components/start.vue';
+import Registration from "../components/Registration.vue";
 
 const routes = [
 
   { path: '/', redirect: '/start' },
   { path: '/start', name: 'start', component: Start },
+  { path: '/registration', name: 'registration', component: Registration},
   { path: '/FirstVueComponent', name: 'FirstVueComponent', component: FirstVueComponent },
   { path: '/fields', name: 'fields', component: Fields },
   { path: '/forest', name: 'forest', component: Forest },
