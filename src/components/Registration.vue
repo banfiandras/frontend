@@ -12,13 +12,13 @@
               <input 
                 type="text" 
                 class="form-control" 
-                :class="{'is-invalid' : errorMessages.name}"
+                :class="{'is-invalid' : errorMessages.Name}"
                 id="name" 
                 placeholder="Name" 
                 v-model="regForm.Name">
               <label for="Name">Név</label>
-              <div v-if="errorMessages.name">
-                <span v-for="m in errorMessages.name" class="error-message">{{ m }} <br/></span>
+              <div v-if="errorMessages.Name">
+                <span v-for="m in errorMessages.Name" class="error-message">{{ m }} <br/></span>
               </div>
             </div>
   
@@ -26,13 +26,13 @@
               <input 
                 type="password" 
                 class="form-control" 
-                :class="{'is-invalid' : errorMessages.password}"
+                :class="{'is-invalid' : errorMessages.Password}"
                 id="password" 
                 placeholder="Password"
                 v-model="regForm.Password">
               <label for="password">Password</label>
-              <div v-if="errorMessages.password">
-                <span v-for="m in errorMessages.password" class="error-message">{{ m }} <br/></span>
+              <div v-if="errorMessages.Password">
+                <span v-for="m in errorMessages.Password" class="error-message">{{ m }} <br/></span>
               </div>
             </div>
   
@@ -40,13 +40,13 @@
               <input 
                 type="password" 
                 class="form-control" 
-                :class="{'is-invalid' : errorMessages.confirm_password}"
+                :class="{'is-invalid' : errorMessages.Confirm_password}"
                 id="password_confirmation" 
                 placeholder="Password again"
                 v-model="regForm.Confirm_password">
               <label for="password_confirmation">Password again</label>
-              <div v-if="errorMessages.confirm_password">
-                <span v-for="m in errorMessages.confirm_password" class="error-message">{{ m }} <br/></span>
+              <div v-if="errorMessages.Confirm_password">
+                <span v-for="m in errorMessages.Confirm_password" class="error-message">{{ m }} <br/></span>
               </div>
             </div>
   
@@ -88,7 +88,7 @@
       })
       .catch(err => {
         // console.log(err.data.data);
-        errorMessages.value = err.data.data;
+        errorMessages.value = err.data.Message;
       })
   }
   </script>

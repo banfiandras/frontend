@@ -8,7 +8,7 @@ export default {
         return resp;
       })
       .catch(err => {
-        // console.log(err.response);
+        console.log(err.response);
         return Promise.reject(err.response);
       })
   },
