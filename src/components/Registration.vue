@@ -51,14 +51,20 @@
             </div>
   
             <div class="mb-3">
-              <button type="submit" class="btn btn-primary w-100 py-3 mt-3">Registration</button>
+              <button type="submit" class="btn btn-primary mb-2 menu-side-button col-12" >Registration</button>
             </div>
           </form>
         </div>
       </div>
   
-      <div v-else class="alert alert-success col-12 col-md-6 mx-auto">
-        Success!
+      <div v-else class="row">
+        <div class="col-12 col-md-4 mx-auto">
+            <div class="alert alert-success col-12 col-md-6 mx-auto">Success!</div>
+            <div>
+              <button @click="pushPlay()" class="btn btn-primary mb-2 menu-side-button col-12">Play!</button>
+           </div>
+        </div>
+        
       </div>
   
     </div>
@@ -67,6 +73,7 @@
   <script setup>
   import { ref } from 'vue';
   import registration from "./registration.js";
+  import { useRouter } from 'vue-router';
   
   
   const regForm = ref({
@@ -90,6 +97,10 @@
         // console.log(err.data.data);
         errorMessages.value = err.data.Message;
       })
+  }
+  const router = useRouter();
+  const pushPlay = () =>{
+    router.push({ name: 'start' });
   }
   </script>
   
