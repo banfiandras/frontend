@@ -18,7 +18,7 @@
               <a class="nav-link">Current energy: {{ global.Sleeep }}</a>
             </li>
           </ul>
-          <span class="navbar-text">Profile data</span>
+          <button @click="pushRegister()" class="btn btn-primary mb-2 menu-side-button ">Registration</button>
         </div>
       </div>
     </nav>
@@ -31,7 +31,7 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { useFaithStore, useHelperStore } from './stores/store.js';
 import { storeToRefs } from 'pinia';
@@ -41,7 +41,7 @@ import { endOFDay } from './npcs/npc.js';
 const global = storeToRefs(useFaithStore());
 console.log(global.Day.value);
 const isDataLoaded = ref(false);
-
+const router = useRouter();
 const helper = storeToRefs(useHelperStore());
 
 const fetchData = async () => {
@@ -51,7 +51,9 @@ const fetchData = async () => {
    global.Sleeep.value = await currentEnergy();
 };
 
-
+const pushRegister = () =>{
+  router.push({ name: 'registration' });
+}
 
 onMounted(async () => {
   try {
