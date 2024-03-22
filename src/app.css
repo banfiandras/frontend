@@ -7,6 +7,11 @@
 }
 /* HTML STUFF */
 
+.side-menu-all{
+  margin: 0;
+  padding: 0;
+}
+
 .mapNames{
   color: black;
   font-size: large;
@@ -38,7 +43,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: antiquewhite;
+  background-color: #F5F5DC;
   min-height: 100vh;
 
 }
@@ -289,3 +294,12 @@ html, body {
   .btn2{
     border: 1px black;
   }
+
+  .btn{
+    background-color: #696969;
+  }
+
+
+
+
+  

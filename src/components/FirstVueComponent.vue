@@ -58,8 +58,8 @@
               </div>
           </div>
       </div>
-      <nav  class="col-md-4 menu-side d-flex flex-column justify-content-start align-items-center">
-        <div class="btn-group-vertical">
+      <nav  class="col-md-4 side-menu-all">
+        <div class="menu-side d-flex flex-column justify-content-center align-items-center">
           <div class="god2">
             <img :src="godIMG" alt="Placeholder">
           </div>
@@ -68,7 +68,7 @@
             <p>{{ CurrentGodDesc }}</p>
           </div>
           <div class="row">
-            <button @click="MapAbSelect()" class="btn btn-primary mb-2 menu-side-button col-md-12 btn2" id="button1" 
+            <button @click="MapAbSelect()" class="btn btn-primary mb-2 menu-side-button col-md-12" id="button1" 
             >
             {{ CurrentabName }} 
             <br> Description: {{ CurrentabDescription }} 

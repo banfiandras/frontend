@@ -1,27 +1,40 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row side-menu-all">
       <div class="col-md-8">
           <div class="row justify-content-center">
           <div class="col-md-2">
-            <button @click="goToMainPage" class="menu-button">return to town</button>
+            <button @click="goToMainPage" class="menu-button ">Return to town</button>
           </div>
-          <div class="col-md-10 ">
-            <div class="npc-talk-img  lign-items-center align-items-center">
-              <img class="npc-talk-img justify-constent-center" src="../../images/banker.PNG">
+          <div class="col-md-10 d-flex flex-column justify-content-center align-items-center">
+            <div>
+              <img class="npc-talk-img" src="../../images/banker.PNG">
             </div>
-            <div class="row">
-              <div class="col-md-6">
+            <div class="row d-flex ">
+              <div class="col-md-6 justify-content-start">
                 <button class="btn btn-primary btn-lg npc-actionbutton" @click="help1_valasz()" :disabled="disable1">Help</button>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 justify-content-end">
                 <button class="btn btn-primary btn-lg npc-actionbutton" @click="help2_valasz(NPCID)" :disabled="disable1">Pray</button>
               </div>
             </div>
+              <div class="row">
+                <div class="">
+                  <p class="headline-npc" id="headlineID">Welcome Prophet!</p>
+                  <div>
+                    <p class="npc-text" id="npctalk">What can I help you with? You need a loan?</p>
+                  </div>
+                  <div class="faithPoint">
+                    <p>Faith level: {{ p }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+          
+        
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 side-menu-all">
         <div class="menu-side d-flex flex-column justify-content-center align-items-center">
           <div>
             <div class="god2">
@@ -48,18 +61,9 @@
   </div>
 
 
-  <div>
-    <div>
-      <p class="headline-npc" id="headlineID">Welcome Prophet!</p>
-      <div>
-        <p class="npc-text" id="npctalk">What can I help you with? You need a loan?</p>
-      </div>
-    </div>
-  </div>
+  
 
-  <div>
-    <p>{{ p }}</p>
-  </div>
+  
 
   <div v-if="showPopup" class="popup">
 
