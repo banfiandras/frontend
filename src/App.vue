@@ -33,7 +33,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
-import { useFaithStore, useHelperStore } from './stores/store.js';
+import { useFaithStore, useHelperStore, useUserStore } from './stores/store.js';
 import { storeToRefs } from 'pinia';
 import { currentDay,currentEnergy,currentFaithPoints,currentTime } from '../src/components/Header';
 import { endOFDay } from './npcs/npc.js';
@@ -43,6 +43,7 @@ console.log(global.Day.value);
 const isDataLoaded = ref(false);
 const router = useRouter();
 const helper = storeToRefs(useHelperStore());
+const userData = storeToRefs(useUserStore());
 
 const fetchData = async () => {
    global.Day.value = await currentDay(); 

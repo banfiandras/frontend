@@ -29,4 +29,18 @@ export const useFaithStore = defineStore('FaithStore', {
     },
   })
 
+  export const useUserStore = defineStore('UserStore', {
+    state: () => {
+      return { 
+        Name: "",
+        WinCon: 0
+    }
+    },
+    // could also be defined as
+    // state: () => ({ count: 0 })
+    actions: {
+      
+    },
+  })
+
   

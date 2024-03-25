@@ -16,7 +16,7 @@
                 id="name" 
                 placeholder="Name" 
                 v-model="regForm.Name">
-              <label for="Name">Név</label>
+              <label for="Name">Name</label>
               <div v-if="errorMessages.Name">
                 <span v-for="m in errorMessages.Name" class="error-message">{{ m }} <br/></span>
               </div>
