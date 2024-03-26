@@ -74,7 +74,13 @@
   import { ref } from 'vue';
   import registration from "./registration.js";
   import { useRouter } from 'vue-router';
+  import axios from 'axios';
+  import { useFaithStore, useHelperStore, useUserStore, useTrueFalseStore } from '../stores/store.js';
+  import { storeToRefs } from 'pinia';
   
+
+  const userData = storeToRefs(useUserStore());
+  const TrueFalse = storeToRefs(useTrueFalseStore());
   
   const regForm = ref({
     Name : '',
@@ -91,16 +97,54 @@
     registration.registerUser(regForm.value)
       .then(()=>{
         regSuccess.value = true;
+        LoginHelper();
       })
       .catch(err => {
         // console.log(err.data.data);
         errorMessages.value = err.data.Message;
       })
+      
   }
   const router = useRouter();
   const pushPlay = () =>{
     router.push({ name: 'start' });
   }
+
+
+  const LoginHelper = () =>{
+  loginData().then(resp =>{
+        console.log(resp);
+        userData.Name = resp[0];
+        console.log(userData.Name);
+        userData.WinCon = resp[1];
+        console.log(userData.WinCon);
+      if (resp[0] !== null) {
+        TrueFalse.DataUserLook.value = true;
+        TrueFalse.LoginButton.value = false;
+        console.log("Login helper true",TrueFalse.LoginButton.value,TrueFalse.DataUserLook.value );
+        
+      } else {
+        TrueFalse.DataUserLook.value =false;
+        TrueFalse.LoginButton.value = true;
+        console.log("LoginhelperFalse",TrueFalse.LoginButton.value,TrueFalse.DataUserLook.value );
+        console.log("rip");
+      }
+
+    })
+}
+
+
+const loginData=()=>{
+    return axios.get(`http://localhost:8000/api/loginData`) 
+    .then(resp=>{
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
   </script>
   
   <style lang="scss" scoped></style>

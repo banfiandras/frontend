@@ -82,7 +82,6 @@ const LogOut = () =>{
   LoginHelper();
 }
 
-
 const LoginHelper = () =>{
   loginData().then(resp =>{
         console.log(resp);
