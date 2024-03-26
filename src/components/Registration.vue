@@ -80,8 +80,7 @@
     Name : '',
     Password: '',
     Confirm_password:'',
-    WinCounter: 0,
-    Admin: 0
+    WinCounter: 0
   });
   
   const regSuccess = ref(false);

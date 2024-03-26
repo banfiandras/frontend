@@ -32,8 +32,22 @@ export const useFaithStore = defineStore('FaithStore', {
   export const useUserStore = defineStore('UserStore', {
     state: () => {
       return { 
-        Name: "",
+        Name: null,
         WinCon: 0
+    }
+    },
+    // could also be defined as
+    // state: () => ({ count: 0 })
+    actions: {
+      
+    },
+  })
+
+  export const useTrueFalseStore = defineStore('TrueFalseStore', {
+    state: () => {
+      return { 
+        LoginButton: true,
+        DataUserLook: false
     }
     },
     // could also be defined as

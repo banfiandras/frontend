@@ -44,8 +44,9 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import login from "../components/login";
-import { useUserStore } from '../stores/store';
+import { useUserStore, useTrueFalseStore } from '../stores/store';
 import { storeToRefs } from 'pinia';
+import axios from 'axios';
 
 const router = useRouter();
 const f = ref(false);
@@ -57,9 +58,11 @@ async function LoginComp(data) {
   login.login(data).then(resp=>{
     if (resp.status == 200 && resp.data !=201) {
       f.value = false;
-      console.log("k");
+
       
-      router.push({name: 'start'})
+      
+      router.push({name: 'start'});
+      LoginHelper();
     }
     else{
       f.value = true;
@@ -68,6 +71,37 @@ async function LoginComp(data) {
   
 }
 
+const TrueFalse = storeToRefs(useTrueFalseStore());
+const LoginHelper = () =>{
+  loginData().then(resp =>{
+      console.log(resp);
+      userData.Name = resp[0];
+      console.log(userData.Name);
+      userData.WinCon = resp[1];
+      console.log(userData.WinCon);
+      if (userData.Name !== null) {
+        TrueFalse.DataUserLook.value =true;
+        TrueFalse.LoginButton.value = false;
+        
+      } else {
+        TrueFalse.DataUserLook.value =false;
+        TrueFalse.LoginButton.value = true;
+      }
+
+    })
+}
+
+const loginData=()=>{
+    return axios.get(`http://localhost:8000/api/loginData`) 
+    .then(resp=>{
+        return resp.data;
+    })
+    .catch(
+        err=>{
+            return console.log("fail");
+        }
+    )
+}
 </script>
 
 <style lang="scss" scoped></style>
