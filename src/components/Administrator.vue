@@ -7,6 +7,7 @@
           <th>ID</th>
           <th>Name</th>
           <th>Win Counter</th>
+          <th>Dont like the user?</th>
         </tr>
       </thead>
       <tbody>
@@ -14,6 +15,9 @@
           <td>{{ user.id }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.wincounter }}</td>
+          <td>
+            <button @click="deleteUser(user.id)">Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -46,6 +50,15 @@ onMounted(() => {
 
 const getData = () => {
   return axios.get('http://localhost:8000/api/returnData');
+};
+
+const deleteUser = async (userId) => {
+  try {
+    await axios.delete(`http://localhost:8000/api/deleteUser/${userId}`);
+    users.value = users.value.filter(user => user.id !== userId);
+  } catch (error) {
+    console.error('Error deleting user:', error);
+  }
 };
 </script>
 
