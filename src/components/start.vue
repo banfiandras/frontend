@@ -18,7 +18,24 @@
         <p>{{ god3 }}</p>
       </div>
     </div>
+    <div class="god-selection">
+      <div>
+      <h1>Story</h1>
+      <div class="god">
+        <p>
+          Once upon a time, there was a man, who never lisened to the greek gods, he never obeyed Zeus's will. One day he made a mistake, he caused such a blaspemy that even the gods could't forgive. 
+          <br> Zeus diceded that not only the man, but the human race as a hole should die in the most horrible way.
+          <br> Luckly there was three gods who liked the humans. They defended them and beged for forgivness. Zeuse gave 100 days for these gods, they had this time to prove Zeus wrong. 
+          <br> The three gods chose a good man among others and gave him a duty. If he could make his people belive in one of the three gods they can defend there race.
+          <br> The choosen man could choose his own god as a helper. <br>
+          Choose youre protector wisely brave human!
+        </p>
+      </div>
+    </div>
+    </div>
+    
   </div>
+  
 </template>
 
 <script setup>

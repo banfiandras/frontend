@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row side-menu-all">
-      <div class="col-md-8">
+      <div class="col-md-8 mt-5">
           <div class="row justify-content-center">
           <div class="col-md-2">
             <button @click="goToMainPage" class="menu-button ">Return to town</button>
