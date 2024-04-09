@@ -31,6 +31,7 @@
           <button v-if="TrueFalse.LoginButton.value" @click="pushLogin()" class="btn btn-primary mb-2 menu-side-button ">Login</button>
           <button v-else @click="LogOut()" class="btn btn-primary mb-2 menu-side-button ">Logout</button>
           <button @click="pushRegister()" class="btn btn-primary mb-2 menu-side-button ">Registration</button>
+          <button @click="pushAdminLogin()" class="btn btn-primary mb-2 menu-side-button ">AdminLogin</button>
         </div>
       </div>
     </nav>
@@ -72,6 +73,10 @@ const pushRegister = () =>{
 
 const pushLogin = () =>{
   router.push({ name: 'login' });
+}
+
+const pushAdminLogin = () =>{
+  router.push({ name: 'adminLogin' });
 }
 
 const LogOut = () =>{

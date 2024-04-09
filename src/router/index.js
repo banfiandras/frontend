@@ -17,10 +17,12 @@ import Start from '../components/start.vue';
 import Registration from "../components/Registration.vue";
 import Login from "../components/Login.vue";
 import Administrator from '../components/Administrator.vue';
+import AdminLogin from '../components/AdminLogin.vue';
 
 const routes = [
 
   { path: '/', redirect: '/start' },
+  { path: '/adminLogin', name: 'adminLogin', component: AdminLogin },
   { path: '/admin', name: 'admin', component: Administrator },
   { path: '/start', name: 'start', component: Start },
   { path: '/registration', name: 'registration', component: Registration},
